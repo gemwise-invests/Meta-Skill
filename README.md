@@ -2,6 +2,8 @@
 
 Game for interviews
 
+![wesnoth-tiles.png](https://raw.githubusercontent.com/syzer/game-recruitment/master/client/assets/images/wesnoth-tiles.png)
+
 ## Getting Started
 
 
@@ -19,7 +21,7 @@ Game for interviews
 
 ## Build & development
 
-Run `grunt build` for building and `grunt serve` for preview.
+Run `gulp build --force` for building and `gulp serve --force` for preview.
 
 ## Testing
 
