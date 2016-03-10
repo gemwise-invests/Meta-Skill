@@ -19,15 +19,13 @@ let ActionSchema = new mongoose.Schema({
 
 ActionSchema
     .path('to')
-    .validate(function (value, respond) {
+    .validate((value, respond) => {
         Tile.findOne({q: value.q, r: value.r}).exec()
             .then(tile => tile.canMoveInto())
-            .then(isValid => {
-                return respond(isValid);
+            .then(respond)
+            .catch((err) => {
+                throw err
             })
-            .catch(function (err) {
-                throw err;
-            });
     }, 'This move is illegal.');
 
 export default mongoose.model('Action', ActionSchema);
