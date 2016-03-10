@@ -1,6 +1,5 @@
 'use strict';
 
-console.log("1");
 class GameController {
 
     constructor($http, $scope, socket) {
@@ -8,10 +7,7 @@ class GameController {
     }
 
 }
-angular.module('mudServerApp')
-    .component('game', {
-        templateUrl: 'app/game/game.html',
-        controller: GameController
-    });
+angular.module('mudServerApp.game')
+    .controller('GameController', GameController);
 
 
