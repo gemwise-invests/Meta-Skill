@@ -4,40 +4,23 @@
  */
 
 'use strict';
-//import Thing from '../api/thing/thing.model';
+import Tile from '../components/tiles/tile.model';
 import User from '../api/user/user.model';
 
-//Thing.find({}).remove()
-//    .then(() => {
-//        Thing.create({
-//            name: 'WOW game',
-//            info: 'Such JavaScript and HTML and CSS ' +
-//            'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-//            'Stylus, Sass, and Less.'
-//        }, {
-//            name: 'Much framework',
-//            info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-//            'AngularJS, and Node.'
-//        }, {
-//            name: 'Smart Build System',
-//            info: 'Build system ignores `spec` files, allowing you to keep ' +
-//            'tests alongside code. Automatic injection of scripts and ' +
-//            'styles into your index.html'
-//        }, {
-//            name: 'Modular Structure',
-//            info: 'Best practice client and server structures allow for more ' +
-//            'code reusability and maximum scalability'
-//        }, {
-//            name: 'Optimized Build',
-//            info: 'Build process packs up your templates as a single JavaScript ' +
-//            'payload, minifies your scripts/css/images, and rewrites asset ' +
-//            'names for caching.'
-//        }, {
-//            name: 'Deployment Ready',
-//            info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-//            'and openshift subgenerators'
-//        });
-//    });
+Tile.find({}).remove()
+    .then(() => {
+        Tile.create({
+            q: 0,
+            r: 0,
+            t: 'GRASS_DRY',
+            o: 'NONE'
+        }, {
+            q: 1,
+            r: 0,
+            t: 'GRASS_DRY',
+            o: 'NONE'
+        });
+    });
 
 User.find({}).remove()
     .then(() => {

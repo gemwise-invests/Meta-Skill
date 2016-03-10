@@ -2,9 +2,8 @@ import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 
 function localAuthenticate(User, email, password, done) {
-    User.findOne({
-        email: email.toLowerCase()
-    }).exec()
+    return User
+        .findOne({email: email.toLowerCase()}).exec()
         .then(user => {
             if (!user) {
                 return done(null, false, {
@@ -21,8 +20,7 @@ function localAuthenticate(User, email, password, done) {
                     return done(null, user);
                 }
             });
-        })
-        .catch(err => done(err));
+        }).catch(err => done(err));
 }
 
 export function setup(User, config) {
