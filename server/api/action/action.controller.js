@@ -15,7 +15,13 @@ export function move(req, res) {
     if (!req.body.to) {
         throw new Error('Set content type');
     }
-    req.body.type = 'move';
+    if ('move' !== req.body.type) {
+        throw new Error('You need to `move`');
+    }
+    // TODO remove this hack
+    req.user = {
+        pos: {"q": -3, "r": 1} //r:2
+    };
     //TODO rule engine check legal
     return Action.create(req.body)
         .then((data) => {
@@ -61,7 +67,6 @@ function handleError(res, statusCode) {
         res.status(statusCode).send(err);
     };
 }
-
 
 // Gets a single Action from the DB
 export function show(req, res) {

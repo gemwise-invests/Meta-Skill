@@ -5,8 +5,8 @@ import Tile from '../status/tile.model';
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
-    // TODO
-    user: String,
+    // TODO to actual user model
+    user: mongoose.Schema.Types.Object,
     //ex: move
     type: {
         type: String,
@@ -27,5 +27,20 @@ ActionSchema
                 throw err
             })
     }, 'This move is illegal.');
+
+const toCoords = (direction) =>({
+    n: {q: 0, r: -1},
+    ne: {q: +1, r: -1},
+    se: {q: +1, r: -1},
+    s: {q: 0, r: +1},
+    sw: {q: -1, r: +1},
+    nw: {q: -1, r: 0}
+}[direction]);
+
+//TODO player/req.user.position coords
+ActionSchema.statics.move = function move(direction, player, cb) {
+    let wantToGo = toCoords(direction);
+    return this.where('name', new RegExp(name, 'i')).exec(cb);
+};
 
 export default mongoose.model('Action', ActionSchema);
