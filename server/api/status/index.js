@@ -7,7 +7,7 @@ var controller = require('./status.controller');
 
 var router = express.Router();
 
-router.get('/', auth.isAuthenticated(), controller.index);
+router.get('/', /*auth.isAuthenticated(),*/ controller.index);
 //router.get('/:id', controller.show);
 //router.post('/', controller.create);
 //router.put('/:id', controller.update);

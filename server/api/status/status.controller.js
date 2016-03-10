@@ -4,7 +4,6 @@
  * POST    /api/status              ->  create
  * GET     /api/status/:id          ->  show
  * PUT     /api/status/:id          ->  update
- * DELETE  /api/status/:id          ->  destroy
  */
 
 'use strict';
@@ -28,17 +27,6 @@ function saveUpdates(updates) {
             .then(updated => {
                 return updated;
             });
-    };
-}
-
-function removeEntity(res) {
-    return function (entity) {
-        if (entity) {
-            return entity.remove()
-                .then(() => {
-                    res.status(204).end();
-                });
-        }
     };
 }
 
@@ -93,10 +81,3 @@ export function update(req, res) {
         .catch(handleError(res));
 }
 
-// Deletes a Status from the DB
-export function destroy(req, res) {
-    return Status.findById(req.params.id).exec()
-        .then(handleEntityNotFound(res))
-        .then(removeEntity(res))
-        .catch(handleError(res));
-}
