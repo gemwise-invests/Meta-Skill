@@ -84,13 +84,10 @@ class GameController {
         $scope.model = new WesnothTiles.Angular.HexMap();
 
         this.loadDisk()
-    }
 
-
-
-
-    changeHex() {
-        this.$scope.model.set({ q: 0, r: 0, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.VILLAGE_HUMAN, fog: false });
+        this.onHexClicked = (h) => {
+            console.log("Clicked hex, h");
+        }
     }
 
 
