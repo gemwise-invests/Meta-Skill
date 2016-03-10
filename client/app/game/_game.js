@@ -2,5 +2,6 @@
 
 angular.module('mudServerApp.game', [
     'mudServerApp.auth',
-    'ui.router'
+    'ui.router',
+    'WesnothTiles'
 ]);
