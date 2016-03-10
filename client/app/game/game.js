@@ -1,4 +1,5 @@
 'use strict';
+console.log("2");
 angular.module('mudServerApp')
     .config(function ($stateProvider) {
         $stateProvider
