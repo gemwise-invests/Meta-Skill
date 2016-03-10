@@ -90,7 +90,7 @@ const TileSchema = new Schema({
         type: String,
         enum: EOverlay
     }
-});
+}, {timestamps: false});
 
 export default mongoose.model('Tile', TileSchema);
 export {ETerrain, EOverlay};
