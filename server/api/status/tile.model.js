@@ -74,8 +74,14 @@ const EOverlay = [
 ];
 
 const TileSchema = new Schema({
-    q: Number,
-    r: Number,
+    q: {
+        type: Number,
+        index: true
+    },
+    r: {
+        type: Number,
+        index: true
+    },
     t: {
         type: String,
         enum: ETerrain
@@ -84,7 +90,7 @@ const TileSchema = new Schema({
         type: String,
         enum: EOverlay
     }
-});
+}, {timestamps: false});
 
 export default mongoose.model('Tile', TileSchema);
 export {ETerrain, EOverlay};

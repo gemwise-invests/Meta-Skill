@@ -1,16 +1,14 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /api/status              ->  index
- * POST    /api/status              ->  create
- * GET     /api/status/:id          ->  show
- * PUT     /api/status/:id          ->  update
- */
-
 'use strict';
 
 import _ from 'lodash';
-import Status from './status.model';
-import Tile from './tile.model';
+import Action from './action.model';
+
+// post saves
+export function move(req, res) {
+    return Action.create(req.body)
+        .then(respondWithResult(res, 201))
+        .catch(handleError(res));
+}
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;
@@ -48,45 +46,34 @@ function handleError(res, statusCode) {
     };
 }
 
-// Gets a list of Status
+// Gets a list of Actions
 export function index(req, res) {
-    console.log(' user', req.user);
-
-    //y6UnImo9k49kK3eAHifmkoTZA76+DvPDDov98=
-    Tile.find().select({_id: 0, __v: 0}).exec()
-        .then(tiles => tiles.map(t=>t.toJSON()))
-        .then(tiles => tiles.map(t => {
-            t.fog = false;
-            return t
-        })).then(respondWithResult(res))
+    return Action.find().exec()
+        .then(respondWithResult(res))
         .catch(handleError(res));
-
-    //Status.find().exec()
-    //    .then(respondWithResult(res))
-    //    .catch(handleError(res));
 }
 
-// Gets a single Status from the DB
+// Gets a single Action from the DB
 export function show(req, res) {
-    return Status.findById(req.params.id).exec()
+    return Action.findById(req.params.id).exec()
         .then(handleEntityNotFound(res))
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
 
-// Creates a new Status in the DB
+// Creates a new Action in the DB
 export function create(req, res) {
-    return Status.create(req.body)
+    return Action.create(req.body)
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
 }
 
-// Updates an existing Status in the DB
+// Updates an existing Action in the DB
 export function update(req, res) {
     if (req.body._id) {
         delete req.body._id;
     }
-    return Status.findById(req.params.id).exec()
+    return Action.findById(req.params.id).exec()
         .then(handleEntityNotFound(res))
         .then(saveUpdates(req.body))
         .then(respondWithResult(res))

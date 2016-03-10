@@ -26,3 +26,10 @@ Run `gulp build --force` for building and `gulp serve --force` for preview.
 ## Testing
 
 Running `npm test` will run the unit tests with karma.
+
+
+## Playing
+
+One plays accessing API:
+
+- `curl localhost:9000/api/status`
