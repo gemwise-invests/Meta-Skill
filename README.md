@@ -22,6 +22,7 @@ Game for interviews
 ## Build & development
 
 Run `gulp build --force` for building and `gulp serve --force` for preview.
+`set -x NODE_ENV test` if you want bypass mandatory tokken
 
 ## Testing
 
@@ -40,3 +41,5 @@ One plays accessing API:
 
 - illegal move (to sea faring)
 `curl -X POST 'localhost:9000/api/actions/move' -H "Content-type: application/json" -d '{"to":{"q": -6, "r": -5}}'`
+
+
