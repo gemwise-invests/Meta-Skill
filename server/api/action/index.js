@@ -1,5 +1,7 @@
 'use strict';
 
+import * as auth from '../../auth/auth.service';
+
 // AKA SOAP :)
 var express = require('express');
 var controller = require('./action.controller');
@@ -9,7 +11,7 @@ var router = express.Router();
 //TODO last move
 router.get('/move', controller.index);
 //TODO registered user
-router.post('/move', /*auth.isAuthenticated(),*/ controller.move);
+router.post('/move',/* auth.isAuthenticated(), */controller.move);
 
 //router.post('/', controller.create);
 //router.put('/:id', controller.update);
