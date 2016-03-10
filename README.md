@@ -33,3 +33,4 @@ Running `npm test` will run the unit tests with karma.
 One plays accessing API:
 
 - `curl localhost:9000/api/status`
+- `curl localhost:9000/api/actions/move`

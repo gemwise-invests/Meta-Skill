@@ -8,7 +8,7 @@ var ActionSchema = new mongoose.Schema({
     //ex: move
     type: {
         type: String,
-        enum: [],
+        enum: ['move'],
         required: true
     }
 }, {timestamps: true});

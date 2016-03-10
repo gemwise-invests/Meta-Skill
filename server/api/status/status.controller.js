@@ -12,45 +12,10 @@ import _ from 'lodash';
 import Status from './status.model';
 import Tile from './tile.model';
 
-function respondWithResult(res, statusCode) {
-    statusCode = statusCode || 200;
-    return function (entity) {
-        if (entity) {
-            res.status(statusCode).json(entity);
-        }
-    };
-}
-
-function saveUpdates(updates) {
-    return function (entity) {
-        var updated = _.merge(entity, updates);
-        return updated.save()
-            .then(updated => {
-                return updated;
-            });
-    };
-}
-
-function handleEntityNotFound(res) {
-    return function (entity) {
-        if (!entity) {
-            res.status(404).end();
-            return null;
-        }
-        return entity;
-    };
-}
-
-function handleError(res, statusCode) {
-    statusCode = statusCode || 500;
-    return function (err) {
-        res.status(statusCode).send(err);
-    };
-}
-
 // Gets a list of Status
+// TODO other characters and other game objects like swords and arrows
 export function index(req, res) {
-    console.log(' user', req.user);
+    console.log('user', req.user);
 
     //y6UnImo9k49kK3eAHifmkoTZA76+DvPDDov98=
     Tile.find().select({_id: 0, __v: 0}).exec()
@@ -91,5 +56,42 @@ export function update(req, res) {
         .then(saveUpdates(req.body))
         .then(respondWithResult(res))
         .catch(handleError(res));
+}
+
+
+function respondWithResult(res, statusCode) {
+    statusCode = statusCode || 200;
+    return function (entity) {
+        if (entity) {
+            res.status(statusCode).json(entity);
+        }
+    };
+}
+
+function saveUpdates(updates) {
+    return function (entity) {
+        var updated = _.merge(entity, updates);
+        return updated.save()
+            .then(updated => {
+                return updated;
+            });
+    };
+}
+
+function handleEntityNotFound(res) {
+    return function (entity) {
+        if (!entity) {
+            res.status(404).end();
+            return null;
+        }
+        return entity;
+    };
+}
+
+function handleError(res, statusCode) {
+    statusCode = statusCode || 500;
+    return function (err) {
+        res.status(statusCode).send(err);
+    };
 }
 
