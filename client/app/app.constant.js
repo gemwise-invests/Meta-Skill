@@ -1,13 +1,13 @@
-(function (angular, undefined) {
-    angular.module("mudServerApp.constants", [])
+(function(angular, undefined) {
+  angular.module("mudServerApp.constants", [])
 
-        .constant("appConfig", {
-            "userRoles": [
-                "guest",
-                "user",
-                "admin"
-            ]
-        })
+.constant("appConfig", {
+	"userRoles": [
+		"guest",
+		"user",
+		"admin"
+	]
+})
 
-    ;
+;
 })(angular);
