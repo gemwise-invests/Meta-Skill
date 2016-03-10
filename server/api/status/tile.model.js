@@ -92,5 +92,13 @@ const TileSchema = new Schema({
     }
 }, {timestamps: false});
 
+
+//TODO to rule engine
+TileSchema.methods = {
+    canMoveInto() {
+        return 'GRASS_GREEN' === this.t;
+    }
+};
+
 export default mongoose.model('Tile', TileSchema);
 export {ETerrain, EOverlay};

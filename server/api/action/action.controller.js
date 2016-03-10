@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 import Action from './action.model';
-import * as auth from '../../auth/auth.service';
 
 // Gets a list of Actions
 export function index(req, res) {
@@ -13,9 +12,15 @@ export function index(req, res) {
 
 // post saves
 export function move(req, res) {
+    if (!req.body.to) {
+        throw new Error('Set content type');
+    }
+    req.body.type = 'move';
+    //TODO rule engine check legal
     return Action.create(req.body)
         .then((data) => {
             console.log('action', data);
+            return data;
         })
         .then(respondWithResult(res, 201))
         .catch(handleError(res));

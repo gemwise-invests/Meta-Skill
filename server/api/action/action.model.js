@@ -1,8 +1,10 @@
 'use strict';
 
 import mongoose from 'mongoose';
+import Tile from '../status/tile.model';
 
-var ActionSchema = new mongoose.Schema({
+//TODO MoveSchema separetly
+let ActionSchema = new mongoose.Schema({
     // TODO
     user: String,
     //ex: move
@@ -10,7 +12,22 @@ var ActionSchema = new mongoose.Schema({
         type: String,
         enum: ['move'],
         required: true
-    }
+    },
+    from: mongoose.Schema.Types.Mixed,
+    to: mongoose.Schema.Types.Object
 }, {timestamps: true});
+
+ActionSchema
+    .path('to')
+    .validate(function (value, respond) {
+        Tile.findOne({q: value.q, r: value.r}).exec()
+            .then(tile => tile.canMoveInto())
+            .then(isValid => {
+                return respond(isValid);
+            })
+            .catch(function (err) {
+                throw err;
+            });
+    }, 'This move is illegal.');
 
 export default mongoose.model('Action', ActionSchema);
