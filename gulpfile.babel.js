@@ -478,7 +478,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
             .pipe(appFilter.restore())
             .pipe(jsFilter)
                 .pipe(plugins.ngAnnotate())
-                .pipe(plugins.uglify())
+
             .pipe(jsFilter.restore())
             .pipe(cssFilter)
                 .pipe(plugins.minifyCss({
