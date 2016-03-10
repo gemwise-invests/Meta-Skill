@@ -34,3 +34,9 @@ One plays accessing API:
 
 - `curl localhost:9000/api/status`
 - `curl localhost:9000/api/actions/move`
+
+- legal move (green tile)
+`curl -X POST 'localhost:9000/api/actions/move'  -H "Content-type: application/json" -d '{"to":{"q": -3, "r": 3}}'`
+
+- illegal move (to sea faring)
+`curl -X POST 'localhost:9000/api/actions/move' -H "Content-type: application/json" -d '{"to":{"q": -6, "r": -5}}'`

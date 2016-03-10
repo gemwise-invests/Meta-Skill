@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
+import _ from 'lodash';
 
 const ETerrain = [
     'GRASS_GREEN',      // Gg 0
@@ -26,6 +27,19 @@ const ETerrain = [
     'WATER_OCEAN',      // Wo 18
     'WATER_COAST_TROPICAL', // Ww 19
     'ABYSS',            // Qxua 20
+    'VOID'              // Xv 21
+];
+
+//TODO merge with Eterrain
+const cannotCrossETerrain = [
+    'ABYSS',            // Qxua 20
+    'MOUNTAIN_BASIC',   // Mm 8
+    'MOUNTAIN_DRY',     // Md 9
+    'MOUNTAIN_SNOW',    // Ms 10
+    'MOUNTAIN_VOLCANO', // Mv 11
+    'SWAMP_WATER',      // Ss 17
+    'WATER_OCEAN',      // Wo 18
+    'WATER_COAST_TROPICAL', // Ww 19
     'VOID'              // Xv 21
 ];
 
@@ -95,8 +109,9 @@ const TileSchema = new Schema({
 
 //TODO to rule engine
 TileSchema.methods = {
+    // TODO async
     canMoveInto() {
-        return 'GRASS_GREEN' === this.t;
+        return !_.contains(cannotCrossETerrain, this.t);
     }
 };
 

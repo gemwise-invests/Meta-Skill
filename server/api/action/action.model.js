@@ -13,7 +13,7 @@ let ActionSchema = new mongoose.Schema({
         enum: ['move'],
         required: true
     },
-    from: mongoose.Schema.Types.Mixed,
+    from: mongoose.Schema.Types.Object,
     to: mongoose.Schema.Types.Object
 }, {timestamps: true});
 
