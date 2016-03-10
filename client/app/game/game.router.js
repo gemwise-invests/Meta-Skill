@@ -1,5 +1,6 @@
 'use strict';
 
+
 angular.module('mudServerApp.game')
     .config(function ($stateProvider) {
         $stateProvider
