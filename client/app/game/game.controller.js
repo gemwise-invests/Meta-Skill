@@ -78,21 +78,16 @@ class GameController {
 
     constructor($scope, $http, socket) {
         this.test = 'Doge was here';
-        this.showCursor = true;
         this.$scope = $scope;
-
         $scope.model = new WesnothTiles.Angular.HexMap();
 
-        this.loadDisk()
-
+        this.loadDisk();
         this.onHexClicked = (h) => {
             console.log("Clicked hex, h");
         }
     }
 
-
     loadDisk() {
-
 
         this.loadRing(5, ETerrain.ABYSS);
         this.loadRing(6, ETerrain.ABYSS);
