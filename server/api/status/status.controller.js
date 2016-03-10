@@ -49,7 +49,8 @@ function handleError(res, statusCode) {
 
 // Gets a list of Statuss
 export function index(req, res) {
-    return Status.find().exec()
+    console.log(req.user);
+    Status.find().exec()
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
