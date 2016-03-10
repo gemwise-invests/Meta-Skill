@@ -1,5 +1,6 @@
 'use strict';
 
+//TODO remove
 import mongoose from 'mongoose';
 
 var StatusSchema = new mongoose.Schema({

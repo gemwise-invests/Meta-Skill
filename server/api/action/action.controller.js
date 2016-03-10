@@ -2,10 +2,21 @@
 
 import _ from 'lodash';
 import Action from './action.model';
+import * as auth from '../../auth/auth.service';
+
+// Gets a list of Actions
+export function index(req, res) {
+    return Action.find().exec()
+        .then(respondWithResult(res))
+        .catch(handleError(res));
+}
 
 // post saves
 export function move(req, res) {
     return Action.create(req.body)
+        .then((data) => {
+            console.log('action', data);
+        })
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
 }
@@ -46,12 +57,6 @@ function handleError(res, statusCode) {
     };
 }
 
-// Gets a list of Actions
-export function index(req, res) {
-    return Action.find().exec()
-        .then(respondWithResult(res))
-        .catch(handleError(res));
-}
 
 // Gets a single Action from the DB
 export function show(req, res) {

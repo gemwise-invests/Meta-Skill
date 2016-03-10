@@ -6,9 +6,11 @@ var controller = require('./action.controller');
 
 var router = express.Router();
 
+//TODO last move
+router.get('/move', controller.index);
 //TODO registered user
-router.post('/move', controller.move);
-//router.get('/:id', controller.show);
+router.post('/move', /*auth.isAuthenticated(),*/ controller.move);
+
 //router.post('/', controller.create);
 //router.put('/:id', controller.update);
 //router.patch('/:id', controller.update);
