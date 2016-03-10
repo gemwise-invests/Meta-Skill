@@ -4,8 +4,6 @@ import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
 
-const authTypes = ['github', 'twitter', 'facebook', 'google'];
-
 const ETerrain = {
     'GRASS_GREEN',      // Gg 0
     'GRASS_SEMI_DRY',   // Ggd 1
