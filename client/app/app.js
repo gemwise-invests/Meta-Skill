@@ -4,6 +4,7 @@ angular.module('mudServerApp', [
         'mudServerApp.auth',
         'mudServerApp.admin',
         'mudServerApp.constants',
+        'mudServerApp.game',
         'ngCookies',
         'ngResource',
         'ngSanitize',
