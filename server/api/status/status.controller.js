@@ -47,9 +47,15 @@ function handleError(res, statusCode) {
     };
 }
 
-// Gets a list of Statuss
+// Gets a list of Status
 export function index(req, res) {
     console.log(req.user);
+
+    //y6UnImo9k49kK3eAHifmkoTZA76+DvPDDov98=
+    const tiles = [
+        {q: 0, r: 0, t: 'SAND_BEACH'}
+    ];
+
     Status.find().exec()
         .then(respondWithResult(res))
         .catch(handleError(res));
