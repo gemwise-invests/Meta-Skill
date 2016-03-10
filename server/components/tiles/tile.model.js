@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
 
-const ETerrain = {
+const ETerrain = [
     'GRASS_GREEN',      // Gg 0
     'GRASS_SEMI_DRY',   // Ggd 1
     'GRASS_DRY',        // Gd 2
@@ -27,9 +27,9 @@ const ETerrain = {
     'WATER_COAST_TROPICAL', // Ww 19
     'ABYSS',            // Qxua 20
     'VOID'              // Xv 21
-};
+];
 
-const EOverlay = {
+const EOverlay = [
     'WOODS_PINE',
     'SNOW_FOREST',
     'JUNGLE',
@@ -71,7 +71,7 @@ const EOverlay = {
     'VILLAGE_COAST',
     'DESERT_PLANTS',
     'NONE'
-};
+];
 
 const TileSchema = new Schema({
     q: Number,
