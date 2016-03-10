@@ -10,6 +10,7 @@
 
 import _ from 'lodash';
 import Status from './status.model';
+import Tile from './tile.model';
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;
@@ -49,16 +50,20 @@ function handleError(res, statusCode) {
 
 // Gets a list of Status
 export function index(req, res) {
-    console.log(req.user);
+    console.log(' user', req.user);
 
     //y6UnImo9k49kK3eAHifmkoTZA76+DvPDDov98=
-    const tiles = [
-        {q: 0, r: 0, t: 'SAND_BEACH'}
-    ];
-
-    Status.find().exec()
-        .then(respondWithResult(res))
+    Tile.find().select({_id: 0, __v: 0}).exec()
+        .then(tiles => tiles.map(t=>t.toJSON()))
+        .then(tiles => tiles.map(t => {
+            t.fog = false;
+            return t
+        })).then(respondWithResult(res))
         .catch(handleError(res));
+
+    //Status.find().exec()
+    //    .then(respondWithResult(res))
+    //    .catch(handleError(res));
 }
 
 // Gets a single Status from the DB

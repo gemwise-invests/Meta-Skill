@@ -74,8 +74,14 @@ const EOverlay = [
 ];
 
 const TileSchema = new Schema({
-    q: Number,
-    r: Number,
+    q: {
+        type: Number,
+        index: true
+    },
+    r: {
+        type: Number,
+        index: true
+    },
     t: {
         type: String,
         enum: ETerrain
