@@ -1,7 +1,7 @@
 'use strict';
 
-import mongoose from 'mongoose';
-import Tile from '../status/tile.model';
+import mongoose from 'mongoose'
+import Tile from '../status/tile.model'
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
@@ -15,7 +15,7 @@ let ActionSchema = new mongoose.Schema({
     },
     from: mongoose.Schema.Types.Object,
     to: mongoose.Schema.Types.Object
-}, {timestamps: true});
+}, {timestamps: true})
 
 ActionSchema
     .path('to')
@@ -26,21 +26,28 @@ ActionSchema
             .catch((err) => {
                 throw err
             })
-    }, 'This move is illegal.');
+    }, 'This move is illegal.')
 
-const toCoords = (direction) =>({
+const toCoords = (direction) => ({
     n: {q: 0, r: -1},
     ne: {q: +1, r: -1},
     se: {q: +1, r: -1},
     s: {q: 0, r: +1},
     sw: {q: -1, r: +1},
     nw: {q: -1, r: 0}
-}[direction]);
+}[direction])
 
-//TODO player/req.user.position coords
-ActionSchema.statics.move = function move(direction, player, cb) {
-    let wantToGo = toCoords(direction);
-    return this.where('name', new RegExp(name, 'i')).exec(cb);
+ActionSchema.statics.move = function move(direction, player, respond) {
+    let dPosition = toCoords(direction)
+    let newPos = {q: player.q + dPosition.q, r: player.r + dPosition.r}
+
+    return Tile.findOne({q: newPos.q, r: newPos.r}).exec()
+        .then(tile => tile.canMoveInto())
+        .then(respond)
+        .catch((err) => {
+            throw err
+        })
+    //return this.where('name', new RegExp(name, 'i')).exec(cb)
 };
 
-export default mongoose.model('Action', ActionSchema);
+export default mongoose.model('Action', ActionSchema)
