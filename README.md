@@ -42,4 +42,8 @@ One plays accessing API:
 - illegal move (to sea faring)
 `curl -X POST 'localhost:9000/api/actions/move' -H "Content-type: application/json" -d '{"to":{"q": -6, "r": -5}}'`
 
+- new movement api:
+valid directions are [ 'n', 'ne', 'se', 's', 'sw', 'nw' ]
+
+`curl -X POST 'localhost:9000/api/actions/move' -H "Content-type: application/json" -d '{"to":"up"}'`
 
