@@ -23,7 +23,32 @@ var UserSchema = new Schema({
     facebook: {},
     twitter: {},
     google: {},
-    github: {}
+    github: {},
+    character: {
+        name: String,
+        level: {
+            type: Number,
+            default: 0
+        },
+        pos: {
+            q: {
+                type: Number,
+                default: 0
+            },
+            r: {
+                type: Number,
+                default: 0
+            }
+        },
+        items: [],
+        stats: {
+            str: Number,
+            mov: Number,
+            agl: Number,
+            maxHp: Number,
+            hp: Number
+        }
+    }
 });
 
 /**
