@@ -118,13 +118,15 @@ TileSchema.methods = {
     }
 };
 
-function TileError(message) {
-    this.name = 'TileError';
-    this.message = message;
-    this.stack = (new Error()).stack;
-    this.statusCode = 403;
+class TileError extends Error {
+    constructor(message) {
+        super(message)
+        this.message = message
+        this.name = 'TileError'
+        this.statusCode = 403
+    }
 }
-TileError.prototype = new Error;
+
 
 export default mongoose.model('Tile', TileSchema);
-export {ETerrain, EOverlay};
+export {ETerrain, EOverlay, TileError};

@@ -1,7 +1,7 @@
 'use strict';
 
 import mongoose from 'mongoose'
-import Tile from '../status/tile.model'
+import {Tile, TileError} from '../status/tile.model'
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
@@ -38,12 +38,10 @@ const toCoords = (direction) => ({
 }[direction])
 
 ActionSchema.statics.move = function move(direction, player) {
-    console.warn('moving', direction, player)
     let dPosition = toCoords(direction.to)
 
-    // TODO promise rejected
     if (!dPosition) {
-        throw new Error('Illegal direction')
+        return Promise.reject(new TileError('Invalid coordinates'))
     }
     let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
 
