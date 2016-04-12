@@ -111,9 +111,20 @@ const TileSchema = new Schema({
 TileSchema.methods = {
     // TODO async
     canMoveInto() {
-        return !_.contains(cannotCrossETerrain, this.t);
+        if (_.contains(cannotCrossETerrain, this.t)) {
+            throw new TileError('Cannot move into')
+        }
+        return this
     }
 };
+
+function TileError(message) {
+    this.name = 'TileError';
+    this.message = message;
+    this.stack = (new Error()).stack;
+    this.statusCode = 403;
+}
+TileError.prototype = new Error;
 
 export default mongoose.model('Tile', TileSchema);
 export {ETerrain, EOverlay};

@@ -21,15 +21,6 @@ export function move(req, res) {
     }
 
     return Action.move(req.body, req.user)
-        .then((data) => {
-            console.log('action result', data)
-            if (!data) {
-                let err = new Error('Cannot go there')
-                err.statusCode = 403
-                throw err
-            }
-            return {msg: 'ok'}
-        })
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
 }

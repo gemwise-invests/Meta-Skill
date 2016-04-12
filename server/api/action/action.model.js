@@ -42,7 +42,9 @@ ActionSchema.statics.move = function move(direction, player) {
     let dPosition = toCoords(direction.to)
     let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
 
-    return Tile.findOne({q: newPos.q, r: newPos.r}).exec()
+    return Tile.findOne({q: newPos.q, r: newPos.r})
+        .select({_id: 0, __v: 0})
+        .exec()
         .then(tile => tile.canMoveInto())
 }
 
