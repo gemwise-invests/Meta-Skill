@@ -13,17 +13,22 @@ export function index(req, res) {
 // post saves
 export function move(req, res) {
     if (!req.body.to) {
-        throw new Error('Set content type');
+        throw new Error('Set content type | "to" qeruired');
     }
     // TODO remove this hack
     req.user = {
-        pos: {"q": -3, "r": 1} //r:2
-    };
-    //TODO rule engine check legal
-    return Action.create(req.body)
+        pos: {"q": 0, "r": 0}
+    }
+
+    return Action.move(req.body, req.user)
         .then((data) => {
-            console.log('action', data);
-            return data;
+            console.log('action result', data)
+            if (!data) {
+                let err = new Error('Cannot go there')
+                err.statusCode = 403
+                throw err
+            }
+            return data
         })
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
@@ -59,9 +64,9 @@ function handleEntityNotFound(res) {
 }
 
 function handleError(res, statusCode) {
-    statusCode = statusCode || 500;
     return function (err) {
-        res.status(statusCode).send(err);
+        statusCode = statusCode || err.statusCode || 500
+        res.status(statusCode).json({code: statusCode, err :err.message})
     };
 }
 

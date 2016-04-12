@@ -38,11 +38,16 @@ const toCoords = (direction) => ({
 }[direction])
 
 ActionSchema.statics.move = function move(direction, player, respond) {
-    let dPosition = toCoords(direction)
-    let newPos = {q: player.q + dPosition.q, r: player.r + dPosition.r}
+    console.warn('moving', direction, player);
+    let dPosition = toCoords(direction.to)
+    let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
 
     return Tile.findOne({q: newPos.q, r: newPos.r}).exec()
         .then(tile => tile.canMoveInto())
+        .then(data => {
+            console.log('can move into?', data)
+            return data
+        })
         .then(respond)
         .catch((err) => {
             throw err
