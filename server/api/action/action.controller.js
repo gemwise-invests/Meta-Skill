@@ -15,9 +15,6 @@ export function move(req, res) {
     if (!req.body.to) {
         throw new Error('Set content type');
     }
-    if ('move' !== req.body.type) {
-        throw new Error('You need to `move`');
-    }
     // TODO remove this hack
     req.user = {
         pos: {"q": -3, "r": 1} //r:2
