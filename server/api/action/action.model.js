@@ -37,7 +37,7 @@ const toCoords = (direction) => ({
     nw: {q: -1, r: 0}
 }[direction])
 
-ActionSchema.statics.move = function move(direction, player, respond) {
+ActionSchema.statics.move = function move(direction, player) {
     console.warn('moving', direction, player);
     let dPosition = toCoords(direction.to)
     let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
