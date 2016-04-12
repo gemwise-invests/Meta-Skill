@@ -10,9 +10,9 @@ module.exports = function gameRules() {
         return true;
     }
 
-    function isFinished(tile) {
+    function isFinished(tile, user) {
         if ('SWAMP_WATER' === tile.t) {
-            return {message: 'Much awesome! You won!', statusCode: 417}
+            return user.gainLevel()
         }
         return tile
     }

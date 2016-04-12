@@ -34,13 +34,13 @@ const toCoords = (direction) => ({
     nw: {q: -1, r: 0}
 }[direction])
 
-ActionSchema.statics.move = function move(direction, player) {
+ActionSchema.statics.move = function move(direction, user) {
     let dPosition = toCoords(direction.to)
 
     if (!dPosition) {
         return Promise.reject(new TileError('Invalid coordinates'))
     }
-    const playerPos = player.character.pos
+    const playerPos = user.character.pos
     const newPos = {q: playerPos.q + dPosition.q, r: playerPos.r + dPosition.r}
 
     return Tile.findOne(newPos)
@@ -51,10 +51,10 @@ ActionSchema.statics.move = function move(direction, player) {
                 type: 'move',
                 from: playerPos,
                 to: {q: title.q, r: title.r},
-                user: player
+                user
             }).save()
         )
-        .then(gameRules().isFinished)
+        .then(title => gameRules().isFinished(title, user))
 }
 
 let Action = mongoose.model('Action', ActionSchema)

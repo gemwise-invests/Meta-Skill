@@ -103,21 +103,17 @@ UserSchema
 UserSchema
     .path('email')
     .validate(function (value, respond) {
-        var self = this;
         return this.constructor.findOne({email: value}).exec()
-            .then(function (user) {
+            .then((user) => {
                 if (user) {
-                    if (self.id === user.id) {
-                        return respond(true);
+                    if (this.id === user.id) {
+                        return respond(true)
                     }
-                    return respond(false);
+                    return respond(false)
                 }
-                return respond(true);
+                return respond(true)
             })
-            .catch(function (err) {
-                throw err;
-            });
-    }, 'The specified email address is already in use.');
+    }, 'The specified email address is already in use.')
 
 var validatePresenceOf = function (value) {
     return value && value.length;
@@ -247,7 +243,14 @@ UserSchema.methods = {
                 callback(null, key.toString('base64'));
             }
         });
-    }
-};
+    },
 
-export default mongoose.model('User', UserSchema);
+    gainLevel() {
+        this.character.level += 1
+        return this.save().then(() => ({
+            message: 'Much awesome! You won! and Gained level!', statusCode: 417
+        }))
+    }
+}
+
+export default mongoose.model('User', UserSchema)

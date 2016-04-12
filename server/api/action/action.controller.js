@@ -23,7 +23,7 @@ export function move(req, res) {
     }
 
     return User.findOne({email: req.user.email})
-        .then(user => Action.move(req.body, req.user))
+        .then(user => Action.move(req.body, user))
         .then(respondWithResult(res, 201))
         .catch(handleError(res))
 }
@@ -57,6 +57,7 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
     return function (err) {
         statusCode = statusCode || err.statusCode || 500
+        console.error(err.stack)
         res.status(statusCode).json({code: statusCode, err: err.message})
     }
 }
