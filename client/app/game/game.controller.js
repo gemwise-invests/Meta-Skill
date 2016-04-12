@@ -81,7 +81,6 @@ class GameController {
         this.$http = $http;
         $scope.model = new WesnothTiles.Angular.HexMap();
 
-        // this.loadDisk();
         this.onHexClicked = (h) => {
             console.log("Clicked hex", h);
         }
@@ -116,148 +115,8 @@ class GameController {
             response.data.forEach(h => {
                 this.$scope.model.set({ q: h.q, r: h.r, terrain: ETerrain[h.t], overlay: EOverlay[h.o], fog: false });
             })
-            console.log("jeb z alsera", response);
         });
     }
-
-    loadDisk() {
-
-        this.loadRing(5, ETerrain.ABYSS);
-        this.loadRing(6, ETerrain.ABYSS);
-        this.loadRing(7, ETerrain.VOID);
-
-        for (var i = 0; i < 5; i++) {
-            this.$scope.model.set({ q: -6, r: i + 1, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-            this.$scope.model.set({ q: -5, r: i, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-            this.$scope.model.set({ q: -4, r: i - 1, terrain: ETerrain.SAND_BEACH, overlay: EOverlay.NONE, fog: false });
-        }
-
-        this.$scope.model.set({ q: 5, r: -5, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 4, r: -5, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.TRASH, fog: false });
-        this.$scope.model.set({ q: 3, r: -5, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.VILLAGE_ORC, fog: false });
-        this.$scope.model.set({ q: 2, r: -5, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 4, r: -4, terrain: ETerrain.HILLS_DRY, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 3, r: -4, terrain: ETerrain.SWAMP_MUD, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: -4, terrain: ETerrain.SWAMP_MUD, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 1, r: -4, terrain: ETerrain.SWAMP_MUD, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 1, r: -3, terrain: ETerrain.MOUNTAIN_DRY, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: -3, terrain: ETerrain.SWAMP_MUD, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 0, r: -2, terrain: ETerrain.MOUNTAIN_DRY, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 3, r: -3, terrain: ETerrain.HILLS_DRY, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 6, r: -5, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 6, r: -4, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 6, r: -3, terrain: ETerrain.HILLS_SNOW, overlay: EOverlay.SNOW_FOREST, fog: false });
-        this.$scope.model.set({ q: 6, r: -2, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.SNOW_FOREST, fog: false });
-        this.$scope.model.set({ q: 6, r: -1, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.SNOW_FOREST, fog: false });
-
-        this.$scope.model.set({ q: 4, r: -1, terrain: ETerrain.MOUNTAIN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 3, r: -1, terrain: ETerrain.MOUNTAIN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 4, r: -2, terrain: ETerrain.MOUNTAIN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 5, r: -2, terrain: ETerrain.MOUNTAIN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: -0, terrain: ETerrain.MOUNTAIN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 3, r: -0, terrain: ETerrain.MOUNTAIN_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 5, r: -3, terrain: ETerrain.HILLS_SNOW, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 4, r: -3, terrain: ETerrain.HILLS_DRY, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 5, r: -4, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 5, r: -1, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.SNOW_FOREST, fog: false });
-        this.$scope.model.set({ q: 5, r: 0, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 4, r: 0, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.VILLAGE_HUMAN, fog: false });
-        this.$scope.model.set({ q: 4, r: 1, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 3, r: 1, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 3, r: 2, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 2, r: 1, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: 2, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: 3, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 1, r: 2, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 1, r: 3, terrain: ETerrain.FROZEN_ICE, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 0, r: 3, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: 4, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: -3, r: 2, terrain: ETerrain.GRASS_GREEN, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -3, r: 3, terrain: ETerrain.GRASS_GREEN, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -3, r: 1, terrain: ETerrain.GRASS_SEMI_DRY, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -3, r: 0, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.DETRITUS, fog: false });
-        this.$scope.model.set({ q: -3, r: -1, terrain: ETerrain.SAND_DESERT, overlay: EOverlay.OASIS, fog: false });
-        this.$scope.model.set({ q: -3, r: -2, terrain: ETerrain.HILLS_DESERT, overlay: EOverlay.PALM_DESERT, fog: false });
-
-        this.$scope.model.set({ q: -2, r: 2, terrain: ETerrain.GRASS_GREEN, overlay: EOverlay.WOODS_PINE, fog: false });
-        this.$scope.model.set({ q: -2, r: 3, terrain: ETerrain.GRASS_GREEN, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -2, r: 1, terrain: ETerrain.GRASS_SEMI_DRY, overlay: EOverlay.WOODS_PINE, fog: false });
-        this.$scope.model.set({ q: -2, r: 0, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.LITER, fog: false });
-        this.$scope.model.set({ q: -2, r: -1, terrain: ETerrain.SAND_DESERT, overlay: EOverlay.DESERT_PLANTS, fog: false });
-        this.$scope.model.set({ q: -2, r: -2, terrain: ETerrain.SAND_DESERT, overlay: EOverlay.PALM_DESERT, fog: false });
-        this.$scope.model.set({ q: -2, r: -3, terrain: ETerrain.HILLS_DESERT, overlay: EOverlay.VILLAGE_DESERT, fog: false });
-
-        this.$scope.model.set({ q: -1, r: -3, terrain: ETerrain.HILLS_DESERT, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -1, r: -2, terrain: ETerrain.MOUNTAIN_DRY, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: -1, r: 3, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -1, r: 1, terrain: ETerrain.GRASS_SEMI_DRY, overlay: EOverlay.WOODS_PINE, fog: false });
-        this.$scope.model.set({ q: -1, r: 2, terrain: ETerrain.GRASS_SEMI_DRY, overlay: EOverlay.VILLAGE_ELVEN, fog: false });
-
-        this.$scope.model.set({ q: 0, r: 1, terrain: ETerrain.MOUNTAIN_BASIC, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: 2, terrain: ETerrain.HILLS_REGULAR, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 1, r: 1, terrain: ETerrain.FROZEN_SNOW, overlay: EOverlay.NONE, fog: false });
-
-
-        this.$scope.model.set({ q: 2, r: -1, terrain: ETerrain.MOUNTAIN_BASIC, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 3, r: -2, terrain: ETerrain.MOUNTAIN_BASIC, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 1, r: 0, terrain: ETerrain.MOUNTAIN_BASIC, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 1, r: -1, terrain: ETerrain.SWAMP_WATER, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: -2, terrain: ETerrain.SWAMP_WATER, overlay: EOverlay.VILLAGE_SWAMP, fog: false });
-        this.$scope.model.set({ q: 1, r: -2, terrain: ETerrain.SWAMP_WATER, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: 0, terrain: ETerrain.SWAMP_WATER, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: -1, r: 0, terrain: ETerrain.WATER_COAST_TROPICAL, overlay: EOverlay.VILLAGE_COAST, fog: false });
-        this.$scope.model.set({ q: -1, r: -1, terrain: ETerrain.WATER_COAST_TROPICAL, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: -1, terrain: ETerrain.WATER_COAST_TROPICAL, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 0, r: -3, terrain: ETerrain.MOUNTAIN_VOLCANO, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: -4, terrain: ETerrain.SAND_DESERT, overlay: EOverlay.NONE, fog: false });
-
-        for (var i = 0; i < 4; i++) {
-            this.$scope.model.set({ q: -2 - i, r: 4 + 1, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-            this.$scope.model.set({ q: -1 - i, r: 4, terrain: ETerrain.WATER_OCEAN, overlay: EOverlay.NONE, fog: false });
-// mapBuilder = mapBuilder.setTile(-2 - i, 4 + 1, ETerrain.WATER_OCEAN)
-//   .setTile(-1 - i, 4, ETerrain.WATER_OCEAN);
-}
-
-this.$scope.model.set({ q: 20, r: 0, terrain: ETerrain.GRASS_DRY, overlay: EOverlay.NONE, fog: false });
-
-}
-
-loadRing(radius, terrain): void {
-    for (var i = 0; i < radius; i++) {
-        this.$scope.model.set({ q: 2 + i, r: -radius - 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2 + radius, r: i - radius - 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2 + radius - i, r: i - 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -2 - i, r: radius + 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -2 - radius, r: radius - i + 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -2 + i - radius, r: -i + 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-
-        this.$scope.model.set({ q: 1, r: -radius, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: -radius, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -1, r: -radius + 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -2, r: -radius + 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: -1, r: radius, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 0, r: radius, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 1, r: radius - 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-        this.$scope.model.set({ q: 2, r: radius - 1, terrain: terrain, overlay: EOverlay.NONE, fog: false });
-    }
-}
 }
 
 angular.module('mudServerApp.game')
