@@ -76,15 +76,36 @@ var ETerrain, EOverlay;
 
 class GameController {
 
-    constructor($scope, $http, socket) {
-        this.test = 'Doge was here';
+    constructor($scope, $http, socket, $element) {
         this.$scope = $scope;
         $scope.model = new WesnothTiles.Angular.HexMap();
 
         this.loadDisk();
         this.onHexClicked = (h) => {
-            console.log("Clicked hex, h");
+            console.log("Clicked hex", h);
         }
+
+        const wesnothTiles = $element.find('wesnoth-tiles');
+
+        this.loadImage("assets/images/hero.png").then(img => {
+            this.onPostDraw = (ctx) => {
+                ctx.drawImage(img, wesnothTiles[0].clientWidth / 2 - 25, wesnothTiles[0].clientHeight / 2 - 32);
+            }
+        })
+
+    }
+
+    loadImage(url) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => {
+              resolve(img);
+            }
+            img.onerror = () => {
+              reject();
+            };
+        });
     }
 
     loadDisk() {

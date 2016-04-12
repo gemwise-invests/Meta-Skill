@@ -1,11 +1,5 @@
 <div class="container">
   <div class="canvas-container">
-    <wesnoth-tiles model="model" show-cursor="true" on-hex-clicked="game.onHexClicked(hex)"></wesnoth-tiles> 
-    <div class="hero">
-        <div class="hero-container">
-            <img src="assets/images/hero.png" />    
-        </div>        
-    </div>
-
+    <wesnoth-tiles model="model" show-cursor="true" on-hex-clicked="game.onHexClicked(hex)" on-post-draw="game.onPostDraw(ctx)"></wesnoth-tiles>
   </div>
 </div>
