@@ -28,7 +28,7 @@ export function move(req, res) {
                 err.statusCode = 403
                 throw err
             }
-            return data
+            return {msg: 'ok'}
         })
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
@@ -66,7 +66,7 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
     return function (err) {
         statusCode = statusCode || err.statusCode || 500
-        res.status(statusCode).json({code: statusCode, err :err.message})
+        res.status(statusCode).json({code: statusCode, err:err.message})
     };
 }
 
