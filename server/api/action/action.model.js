@@ -6,8 +6,7 @@ import gameRules from '../../components/game/rules';
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
-    // TODO to actual user model
-    user: mongoose.Schema.Types.Object,
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     type: {
         type: String,
         enum: ['move'],
@@ -41,20 +40,20 @@ ActionSchema.statics.move = function move(direction, player) {
     if (!dPosition) {
         return Promise.reject(new TileError('Invalid coordinates'))
     }
-    let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
+    const playerPos = player.character.pos
+    const newPos = {q: playerPos.q + dPosition.q, r: playerPos.r + dPosition.r}
 
     return Tile.findOne(newPos)
         .select({_id: 0, __v: 0})
         .exec()
         .then(tile => tile.canMoveInto())
-        .tap(title => {
-            return (new Action({
+        .tap(title => new Action({
                 type: 'move',
-                from: player.pos,
+                from: playerPos,
                 to: {q: title.q, r: title.r},
-                user: player.email
-            })).save()
-        })
+                user: player
+            }).save()
+        )
         .then(gameRules().isFinished)
 }
 

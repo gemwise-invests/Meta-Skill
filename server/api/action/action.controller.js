@@ -1,7 +1,8 @@
-'use strict';
+'use strict'
 
 import _ from 'lodash'
 import Action from './action.model'
+import User from '../user/user.model'
 
 // Gets a list of Actions
 export function index(req, res) {
@@ -13,7 +14,7 @@ export function index(req, res) {
 // post saves
 export function move(req, res) {
     if (!req.body.to) {
-        throw new Error('Set content type | "to" qeruired');
+        throw new Error('Set content type | "to" is required')
     }
     // TODO remove this hack
     req.user = {
@@ -21,7 +22,8 @@ export function move(req, res) {
         email: 'test@test.com'
     }
 
-    return Action.move(req.body, req.user)
+    return User.findOne({email: req.user.email})
+        .then(user => Action.move(req.body, req.user))
         .then(respondWithResult(res, 201))
         .catch(handleError(res))
 }
@@ -32,7 +34,7 @@ function respondWithResult(res, statusCode) {
         if (entity) {
             res.status(statusCode).json(entity)
         }
-    };
+    }
 }
 
 function saveUpdates(updates) {
