@@ -1,9 +1,9 @@
 'use strict';
 
-import mongoose from 'mongoose';
-mongoose.Promise = require('bluebird');
-import {Schema} from 'mongoose';
-import _ from 'lodash';
+import mongoose from 'mongoose'
+mongoose.Promise = require('bluebird')
+import {Schema} from 'mongoose'
+import _ from 'lodash'
 
 const ETerrain = [
     'GRASS_GREEN',      // Gg 0
@@ -127,6 +127,6 @@ class TileError extends Error {
     }
 }
 
-
-export default mongoose.model('Tile', TileSchema);
-export {ETerrain, EOverlay, TileError};
+const Tile = mongoose.model('Tile', TileSchema)
+export default Tile
+export {ETerrain, EOverlay, TileError, Tile}

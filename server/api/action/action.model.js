@@ -2,6 +2,7 @@
 
 import mongoose from 'mongoose'
 import {Tile, TileError} from '../status/tile.model'
+import gameRules from '../../components/game/rules';
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
@@ -31,7 +32,7 @@ ActionSchema
 const toCoords = (direction) => ({
     n: {q: 0, r: -1},
     ne: {q: +1, r: -1},
-    se: {q: +1, r: -1},
+    se: {q: +1, r: 0},
     s: {q: 0, r: +1},
     sw: {q: -1, r: +1},
     nw: {q: -1, r: 0}
@@ -49,6 +50,7 @@ ActionSchema.statics.move = function move(direction, player) {
         .select({_id: 0, __v: 0})
         .exec()
         .then(tile => tile.canMoveInto())
+        .then(gameRules().isFinished)
 }
 
 export default mongoose.model('Action', ActionSchema)
