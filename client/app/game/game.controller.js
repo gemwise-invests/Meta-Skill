@@ -78,14 +78,17 @@ class GameController {
 
     constructor($scope, $http, socket, $element) {
         this.$scope = $scope;
+        this.$http = $http;
         $scope.model = new WesnothTiles.Angular.HexMap();
 
-        this.loadDisk();
+        // this.loadDisk();
         this.onHexClicked = (h) => {
             console.log("Clicked hex", h);
         }
 
         const wesnothTiles = $element.find('wesnoth-tiles');
+
+        this.getStatus();
 
         this.loadImage("assets/images/hero.png").then(img => {
             this.onPostDraw = (ctx) => {
@@ -105,6 +108,15 @@ class GameController {
             img.onerror = () => {
               reject();
             };
+        });
+    }
+
+    getStatus() {
+        return this.$http.get('/api/status').then(response => {
+            response.data.forEach(h => {
+                this.$scope.model.set({ q: h.q, r: h.r, terrain: ETerrain[h.t], overlay: EOverlay[h.o], fog: false });
+            })
+            console.log("jeb z alsera", response);
         });
     }
 

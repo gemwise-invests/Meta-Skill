@@ -2,7 +2,6 @@
 
 import * as auth from '../../auth/auth.service';
 
-// AKA SOAP :)
 var express = require('express');
 var controller = require('./action.controller');
 

@@ -17,7 +17,6 @@ import Tile from './tile.model';
 export function index(req, res) {
     console.log('user', req.user);
 
-    //y6UnImo9k49kK3eAHifmkoTZA76+DvPDDov98=
     Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => tiles.map(t=>t.toJSON()))
         .then(tiles => tiles.map(t => {
@@ -25,10 +24,6 @@ export function index(req, res) {
             return t
         })).then(respondWithResult(res))
         .catch(handleError(res));
-
-    //Status.find().exec()
-    //    .then(respondWithResult(res))
-    //    .catch(handleError(res));
 }
 
 // Gets a single Status from the DB
