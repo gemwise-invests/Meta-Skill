@@ -8,7 +8,6 @@ import gameRules from '../../components/game/rules';
 let ActionSchema = new mongoose.Schema({
     // TODO to actual user model
     user: mongoose.Schema.Types.Object,
-    //ex: move
     type: {
         type: String,
         enum: ['move'],
@@ -20,14 +19,12 @@ let ActionSchema = new mongoose.Schema({
 
 ActionSchema
     .path('to')
-    .validate((value, respond) => {
+    .validate((value, respond) =>
         Tile.findOne({q: value.q, r: value.r}).exec()
             .then(tile => tile.canMoveInto())
             .then(respond)
-            .catch((err) => {
-                throw err
-            })
-    }, 'This move is illegal.')
+        , 'This move is illegal.'
+    )
 
 const toCoords = (direction) => ({
     n: {q: 0, r: -1},
@@ -46,11 +43,21 @@ ActionSchema.statics.move = function move(direction, player) {
     }
     let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
 
-    return Tile.findOne({q: newPos.q, r: newPos.r})
+    return Tile.findOne(newPos)
         .select({_id: 0, __v: 0})
         .exec()
         .then(tile => tile.canMoveInto())
+        .tap(title => {
+            return (new Action({
+                type: 'move',
+                from: player.pos,
+                to: {q: title.q, r: title.r},
+                user: player.email
+            })).save()
+        })
         .then(gameRules().isFinished)
 }
 
-export default mongoose.model('Action', ActionSchema)
+let Action = mongoose.model('Action', ActionSchema)
+
+export default Action

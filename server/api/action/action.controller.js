@@ -7,7 +7,7 @@ import Action from './action.model';
 export function index(req, res) {
     return Action.find().exec()
         .then(respondWithResult(res))
-        .catch(handleError(res));
+        .catch(handleError(res))
 }
 
 // post saves
@@ -17,7 +17,8 @@ export function move(req, res) {
     }
     // TODO remove this hack
     req.user = {
-        pos: {"q": 0, "r": 0}
+        pos: {q: 0, r: 0},
+        email: 'test@test.com'
     }
 
     return Action.move(req.body, req.user)
@@ -38,10 +39,7 @@ function saveUpdates(updates) {
     return function (entity) {
         var updated = _.merge(entity, updates);
         return updated.save()
-            .then(updated => {
-                return updated;
-            });
-    };
+    }
 }
 
 function handleEntityNotFound(res) {
