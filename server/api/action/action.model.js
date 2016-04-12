@@ -38,8 +38,13 @@ const toCoords = (direction) => ({
 }[direction])
 
 ActionSchema.statics.move = function move(direction, player) {
-    console.warn('moving', direction, player);
+    console.warn('moving', direction, player)
     let dPosition = toCoords(direction.to)
+
+    // TODO promise rejected
+    if (!dPosition) {
+        throw new Error('Illegal direction')
+    }
     let newPos = {q: player.pos.q + dPosition.q, r: player.pos.r + dPosition.r}
 
     return Tile.findOne({q: newPos.q, r: newPos.r})
