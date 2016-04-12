@@ -37,7 +37,7 @@ const cannotCrossETerrain = [
     'MOUNTAIN_DRY',     // Md 9
     'MOUNTAIN_SNOW',    // Ms 10
     'MOUNTAIN_VOLCANO', // Mv 11
-    'SWAMP_WATER',      // Ss 17
+    // 'SWAMP_WATER',      // Ss 17
     'WATER_OCEAN',      // Wo 18
     'WATER_COAST_TROPICAL', // Ww 19
     'VOID'              // Xv 21
