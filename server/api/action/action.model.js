@@ -44,10 +44,6 @@ ActionSchema.statics.move = function move(direction, player, respond) {
 
     return Tile.findOne({q: newPos.q, r: newPos.r}).exec()
         .then(tile => tile.canMoveInto())
-        .then(respond)
-        .catch((err) => {
-            throw err
-        })
 }
 
 export default mongoose.model('Action', ActionSchema)
