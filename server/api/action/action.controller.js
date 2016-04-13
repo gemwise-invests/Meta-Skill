@@ -63,12 +63,12 @@ function filterBySight(tiles, userPos) {
 
 
 
-    if (map.has("1,0")) add7(map, visible, 1, 0);
-    if (map.has("0,1")) add7(map, visible, 0, 1);
-    if (map.has("-1,0")) add7(map, visible, -1, 0);
-    if (map.has("0,-1")) add7(map, visible, 0, -1);
-    if (map.has("1,-1")) add7(map, visible, 1, -1);
-    if (map.has("-1,1")) add7(map, visible, -1, 1);
+    if (map.get("1,0").canSeeThrough()) add7(map, visible, 1, 0);
+    if (map.get("0,1").canSeeThrough()) add7(map, visible, 0, 1);
+    if (map.get("-1,0").canSeeThrough()) add7(map, visible, -1, 0);
+    if (map.get("0,-1").canSeeThrough()) add7(map, visible, 0, -1);
+    if (map.get("1,-1").canSeeThrough()) add7(map, visible, 1, -1);
+    if (map.get("-1,1").canSeeThrough()) add7(map, visible, -1, 1);
 
     return Array.from(visible.values())
 }
