@@ -80,6 +80,12 @@ class GameController {
         this.$scope = $scope;
         this.$http = $http;
         $scope.model = new WesnothTiles.Angular.HexMap();
+        this.actions = [];
+        this.socket = socket;
+
+        $scope.$on('$destroy', function () {
+            socket.unsyncUpdates('action');
+        });
 
         this.onHexClicked = (h) => {
             console.log("Clicked hex", h);
@@ -96,6 +102,14 @@ class GameController {
         })
 
     }
+
+    $onInit() {
+        this.$http.get('/api/actions').then(response => {
+            this.actions = response.data;
+            this.socket.syncUpdates('action', this.actions);
+        });
+    }
+
 
     loadImage(url) {
         return new Promise((resolve, reject) => {
