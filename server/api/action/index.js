@@ -1,22 +1,15 @@
 'use strict';
 
-import * as auth from '../../auth/auth.service';
+import * as auth from '../../auth/auth.service'
 
-var express = require('express');
-var controller = require('./action.controller');
+const express = require('express')
+const controller = require('./action.controller')
 
-var router = express.Router();
+let router = express.Router()
 
-//TODO last move
-router.get('/move', controller.index);
 //TODO registered user
-router.post('/move',/* auth.isAuthenticated(), */controller.move);
+router.get('/move',/* auth.isAuthenticated(), */controller.findLastMove)
+router.post('/move',/* auth.isAuthenticated(), */controller.move)
+router.get('/status', controller.status)
 
-router.get('/status', controller.status);
-
-//router.post('/', controller.create);
-//router.put('/:id', controller.update);
-//router.patch('/:id', controller.update);
-//router.delete('/:id', controller.destroy);
-
-module.exports = router;
+module.exports = router

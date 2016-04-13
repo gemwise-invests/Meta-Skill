@@ -5,23 +5,23 @@ import Action from './action.model';
 import Tile from '../status/tile.model';
 import User from '../user/user.model'
 
-// Gets a list of Actions
-export function index(req, res) {
-    return Action.find().exec()
+// TODO remove this hack
+const reqUserHack = {
+    pos: {q: 0, r: 0},
+    email: 'test@test.com'
+}
+
+export const findLastMove = (req, res) =>
+    Action.findLastMove(reqUserHack)
         .then(respondWithResult(res))
         .catch(handleError(res))
-}
 
 // post saves
 export function move(req, res) {
     if (!req.body.to) {
         throw new Error('Set content type | "to" is required')
     }
-    // TODO remove this hack
-    req.user = {
-        pos: {q: 0, r: 0},
-        email: 'test@test.com'
-    }
+    req.user = reqUserHack
 
     return User.findOne({email: req.user.email})
         .then(user => Action.move(req.body, user))
@@ -36,7 +36,7 @@ export function status(req, res) {
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.pos))
         .then(respondWithResult(res))
-        .catch(handleError(res));
+        .catch(handleError(res))
 }
 
 function add1(map, visible, q, r) {
@@ -50,7 +50,7 @@ function add7(map, visible, q, r) {
     add1(map, visible, q - 1, r);
     add1(map, visible, q, r - 1);
     add1(map, visible, q + 1, r - 1);
-    add1(map, visible, q - 1, r  + 1);
+    add1(map, visible, q - 1, r + 1);
 }
 
 function filterBySight(tiles, userPos) {
@@ -60,7 +60,6 @@ function filterBySight(tiles, userPos) {
     const visible = new Map();
 
     add7(map, visible, 0, 0);
-
 
 
     if (map.has("1,0")) add7(map, visible, 1, 0);

@@ -106,17 +106,14 @@ const TileSchema = new Schema({
     }
 }, {timestamps: false});
 
-
-//TODO to rule engine
 TileSchema.methods = {
-    // TODO async
     canMoveInto() {
         if (_.contains(cannotCrossETerrain, this.t)) {
             throw new TileError('Cannot move into')
         }
         return this
     }
-};
+}
 
 class TileError extends Error {
     constructor(message) {

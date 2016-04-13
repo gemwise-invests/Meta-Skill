@@ -2,11 +2,16 @@
 
 import mongoose from 'mongoose'
 import {Tile, TileError} from '../status/tile.model'
-import gameRules from '../../components/game/rules';
+import gameRules from '../../components/game/rules'
+import User from '../user/user.model'
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     type: {
         type: String,
         enum: ['move'],
@@ -19,9 +24,9 @@ let ActionSchema = new mongoose.Schema({
 ActionSchema
     .path('to')
     .validate((value, respond) =>
-        Tile.findOne({q: value.q, r: value.r}).exec()
-            .then(tile => tile.canMoveInto())
-            .then(respond)
+            Tile.findOne({q: value.q, r: value.r}).exec()
+                .then(tile => tile.canMoveInto())
+                .then(respond)
         , 'This move is illegal.'
     )
 
@@ -56,6 +61,12 @@ ActionSchema.statics.move = function move(direction, user) {
         )
         .then(title => gameRules().isFinished(title, user))
 }
+
+//TODO finish
+ActionSchema.statics.findLastMove = (user) =>
+    User.findOne({email: user.email}).exec()
+        .then(dbUser => Action.find({user: dbUser}))
+        .tap(console.log)
 
 let Action = mongoose.model('Action', ActionSchema)
 
