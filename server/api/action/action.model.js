@@ -1,13 +1,12 @@
 'use strict';
 
 import mongoose from 'mongoose'
-import Tile from '../status/tile.model'
+import {Tile, TileError} from '../status/tile.model'
+import gameRules from '../../components/game/rules';
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
-    // TODO to actual user model
-    user: mongoose.Schema.Types.Object,
-    //ex: move
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     type: {
         type: String,
         enum: ['move'],
@@ -19,35 +18,45 @@ let ActionSchema = new mongoose.Schema({
 
 ActionSchema
     .path('to')
-    .validate((value, respond) => {
+    .validate((value, respond) =>
         Tile.findOne({q: value.q, r: value.r}).exec()
             .then(tile => tile.canMoveInto())
             .then(respond)
-            .catch((err) => {
-                throw err
-            })
-    }, 'This move is illegal.')
+        , 'This move is illegal.'
+    )
 
 const toCoords = (direction) => ({
     n: {q: 0, r: -1},
     ne: {q: +1, r: -1},
-    se: {q: +1, r: -1},
+    se: {q: +1, r: 0},
     s: {q: 0, r: +1},
     sw: {q: -1, r: +1},
     nw: {q: -1, r: 0}
 }[direction])
 
-ActionSchema.statics.move = function move(direction, player, respond) {
-    let dPosition = toCoords(direction)
-    let newPos = {q: player.q + dPosition.q, r: player.r + dPosition.r}
+ActionSchema.statics.move = function move(direction, user) {
+    let dPosition = toCoords(direction.to)
 
-    return Tile.findOne({q: newPos.q, r: newPos.r}).exec()
+    if (!dPosition) {
+        return Promise.reject(new TileError('Invalid coordinates'))
+    }
+    const playerPos = user.character.pos
+    const newPos = {q: playerPos.q + dPosition.q, r: playerPos.r + dPosition.r}
+
+    return Tile.findOne(newPos)
+        .select({_id: 0, __v: 0})
+        .exec()
         .then(tile => tile.canMoveInto())
-        .then(respond)
-        .catch((err) => {
-            throw err
-        })
-    //return this.where('name', new RegExp(name, 'i')).exec(cb)
-};
+        .tap(title => new Action({
+                type: 'move',
+                from: playerPos,
+                to: {q: title.q, r: title.r},
+                user
+            }).save()
+        )
+        .then(title => gameRules().isFinished(title, user))
+}
 
-export default mongoose.model('Action', ActionSchema)
+let Action = mongoose.model('Action', ActionSchema)
+
+export default Action

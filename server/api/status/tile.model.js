@@ -1,9 +1,9 @@
 'use strict';
 
-import mongoose from 'mongoose';
-mongoose.Promise = require('bluebird');
-import {Schema} from 'mongoose';
-import _ from 'lodash';
+import mongoose from 'mongoose'
+mongoose.Promise = require('bluebird')
+import {Schema} from 'mongoose'
+import _ from 'lodash'
 
 const ETerrain = [
     'GRASS_GREEN',      // Gg 0
@@ -37,7 +37,7 @@ const cannotCrossETerrain = [
     'MOUNTAIN_DRY',     // Md 9
     'MOUNTAIN_SNOW',    // Ms 10
     'MOUNTAIN_VOLCANO', // Mv 11
-    'SWAMP_WATER',      // Ss 17
+    // 'SWAMP_WATER',      // Ss 17
     'WATER_OCEAN',      // Wo 18
     'WATER_COAST_TROPICAL', // Ww 19
     'VOID'              // Xv 21
@@ -111,9 +111,22 @@ const TileSchema = new Schema({
 TileSchema.methods = {
     // TODO async
     canMoveInto() {
-        return !_.contains(cannotCrossETerrain, this.t);
+        if (_.contains(cannotCrossETerrain, this.t)) {
+            throw new TileError('Cannot move into')
+        }
+        return this
     }
 };
 
-export default mongoose.model('Tile', TileSchema);
-export {ETerrain, EOverlay};
+class TileError extends Error {
+    constructor(message) {
+        super(message)
+        this.message = message
+        this.name = 'TileError'
+        this.statusCode = 403
+    }
+}
+
+const Tile = mongoose.model('Tile', TileSchema)
+export default Tile
+export {ETerrain, EOverlay, TileError, Tile}
