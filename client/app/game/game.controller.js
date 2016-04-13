@@ -74,12 +74,13 @@ var ETerrain, EOverlay;
 
 class GameController {
 
-    constructor($scope, $http, socket, $element) {
+    constructor($scope, $http, socket, $element, _) {
         this.$scope = $scope;
         this.$http = $http;
         $scope.model = new WesnothTiles.Angular.HexMap();
         this.actions = [];
         this.socket = socket;
+        this._ = _; // classes are freaking stupid idea
 
         $scope.$on('$destroy', function () {
             socket.unsyncUpdates('action');
@@ -102,7 +103,10 @@ class GameController {
 
         //TODO titles.findNearby([newActions.length - 1])
         $scope.$watchCollection(() => this.actions, (newActions, oldActions) => {
-            console.log('jeb z lasera', newActions, oldActions)
+            if (!newActions) {
+                return
+            }
+            console.log('kichoo to you', _.last(newActions), 'old', oldActions)
         });
 
         //TODO remove hack
