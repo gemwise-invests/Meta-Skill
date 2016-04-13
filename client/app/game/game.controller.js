@@ -72,15 +72,13 @@ var ETerrain, EOverlay;
 })(EOverlay || (EOverlay = {}));
 
 
-
-
 class GameController {
 
     constructor($scope, $http, socket, $element) {
         this.$scope = $scope;
         this.$http = $http;
         $scope.model = new WesnothTiles.Angular.HexMap();
-        this.actions = [];
+        $scope.actions = [];
         this.socket = socket;
 
         $scope.$on('$destroy', function () {
@@ -102,7 +100,16 @@ class GameController {
             }
         })
 
+        $scope.$watchCollection('actions', function (newActions, oldActions) {
+            console.log('jeb z lasera', newActions, oldActions)
+        //    [newActions.length - 1]
+        });
+
+        //TODO remove hack
+        window.scope = this;
+
     }
+
 
     $onInit() {
         this.$http.get('/api/actions/move').then(response => {
@@ -118,10 +125,10 @@ class GameController {
             const img = new Image();
             img.src = url;
             img.onload = () => {
-              resolve(img);
+                resolve(img);
             }
             img.onerror = () => {
-              reject();
+                reject();
             };
         });
     }
@@ -129,7 +136,7 @@ class GameController {
     getStatus() {
         return this.$http.get('/api/actions/status').then(response => {
             response.data.forEach(h => {
-                this.$scope.model.set({ q: h.q, r: h.r, terrain: ETerrain[h.t], overlay: EOverlay[h.o], fog: false });
+                this.$scope.model.set({q: h.q, r: h.r, terrain: ETerrain[h.t], overlay: EOverlay[h.o], fog: false});
             })
         });
     }
@@ -143,6 +150,6 @@ class GameController {
 }
 
 angular.module('mudServerApp.game')
-.controller('GameController', GameController);
+    .controller('GameController', GameController);
 
 
