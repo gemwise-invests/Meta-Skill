@@ -94,6 +94,7 @@ class GameController {
         const wesnothTiles = $element.find('wesnoth-tiles');
 
         this.getStatus();
+        this.$onInit();
 
         this.loadImage("assets/images/hero.png").then(img => {
             this.onPostDraw = (ctx) => {
@@ -104,7 +105,8 @@ class GameController {
     }
 
     $onInit() {
-        this.$http.get('/api/actions').then(response => {
+        this.$http.get('/api/actions/move').then(response => {
+            console.log('actions/move', response.data);
             this.actions = response.data;
             this.socket.syncUpdates('action', this.actions);
         });
