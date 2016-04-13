@@ -12,6 +12,8 @@ router.get('/move', controller.index);
 //TODO registered user
 router.post('/move',/* auth.isAuthenticated(), */controller.move);
 
+router.get('/status', controller.status);
+
 //router.post('/', controller.create);
 //router.put('/:id', controller.update);
 //router.patch('/:id', controller.update);

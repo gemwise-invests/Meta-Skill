@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import Action from './action.model';
+import Tile from '../status/tile.model';
 
 // Gets a list of Actions
 export function index(req, res) {
@@ -27,6 +28,50 @@ export function move(req, res) {
         })
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
+}
+
+export function status(req, res) {
+    const user = {
+        pos: {q: 0, r: 0}
+    }
+    return Tile.find().select({_id: 0, __v: 0}).exec()
+        .then(tiles => filterBySight(tiles, user.pos))
+        .then(respondWithResult(res))
+        .catch(handleError(res));
+}
+
+function add1(map, visible, q, r) {
+    visible.set(q + "," + r, map.get(q + "," + r));
+}
+
+function add7(map, visible, q, r) {
+    add1(map, visible, q, r);
+    add1(map, visible, q + 1, r);
+    add1(map, visible, q, r + 1);
+    add1(map, visible, q - 1, r);
+    add1(map, visible, q, r - 1);
+    add1(map, visible, q + 1, r - 1);
+    add1(map, visible, q - 1, r  + 1);
+}
+
+function filterBySight(tiles, userPos) {
+    const map = new Map();
+
+    tiles.forEach(t => map.set((t.q - userPos.q) + "," + (t.r - userPos.r), t))
+    const visible = new Map();
+
+    add7(map, visible, 0, 0);
+
+
+
+    if (map.has("1,0")) add7(map, visible, 1, 0);
+    if (map.has("0,1")) add7(map, visible, 0, 1);
+    if (map.has("-1,0")) add7(map, visible, -1, 0);
+    if (map.has("0,-1")) add7(map, visible, 0, -1);
+    if (map.has("1,-1")) add7(map, visible, 1, -1);
+    if (map.has("-1,1")) add7(map, visible, -1, 1);
+
+    return Array.from(visible.values())
 }
 
 function respondWithResult(res, statusCode) {

@@ -111,7 +111,7 @@ class GameController {
     }
 
     getStatus() {
-        return this.$http.get('/api/status').then(response => {
+        return this.$http.get('/api/actions/status').then(response => {
             response.data.forEach(h => {
                 this.$scope.model.set({ q: h.q, r: h.r, terrain: ETerrain[h.t], overlay: EOverlay[h.o], fog: false });
             })
