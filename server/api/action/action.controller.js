@@ -30,9 +30,8 @@ export function move(req, res) {
 }
 
 export function status(req, res) {
-    const user = {
-        pos: {q: 0, r: 0}
-    }
+
+    const user = reqUserHack;
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.pos))
         .then(respondWithResult(res))
