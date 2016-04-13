@@ -43,6 +43,13 @@ const cannotCrossETerrain = [
     'VOID'              // Xv 21
 ];
 
+const cannotSeeThroughTerrain = [
+    'MOUNTAIN_BASIC',   // Mm 8
+    'MOUNTAIN_DRY',     // Md 9
+    'MOUNTAIN_SNOW',    // Ms 10
+    'MOUNTAIN_VOLCANO', // Mv 11
+]
+
 const EOverlay = [
     'WOODS_PINE',
     'SNOW_FOREST',
@@ -112,6 +119,10 @@ TileSchema.methods = {
             throw new TileError('Cannot move into')
         }
         return this
+    },
+
+    canSeeThrough() {
+        return !_.contains(cannotSeeThroughTerrain, this.t)
     }
 }
 
