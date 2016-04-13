@@ -131,6 +131,13 @@ class GameController {
             })
         });
     }
+
+    move(direction) {
+        this.$http.post('/api/actions/move', {to: direction}).then(response => {
+            this.actions = response.data;
+            this.socket.syncUpdates('action', this.actions);
+        });
+    }
 }
 
 angular.module('mudServerApp.game')

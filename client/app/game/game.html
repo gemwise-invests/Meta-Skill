@@ -2,4 +2,10 @@
   <div class="canvas-container">
     <wesnoth-tiles model="model" show-cursor="true" on-hex-clicked="game.onHexClicked(hex)" on-post-draw="game.onPostDraw(ctx)"></wesnoth-tiles>
   </div>
+  <button ng-click="game.move('sw')"> Move sw</button>
+  <button ng-click="game.move('se')"> Move se</button>
+  <button ng-click="game.move('nw')"> Move nw</button>
+  <button ng-click="game.move('ne')"> Move ne</button>
+  <button ng-click="game.move('n')"> Move n</button>
+  <button ng-click="game.move('s')"> Move s</button>
 </div>
