@@ -78,7 +78,7 @@ class GameController {
         this.$scope = $scope;
         this.$http = $http;
         $scope.model = new WesnothTiles.Angular.HexMap();
-        $scope.actions = [];
+        this.actions = [];
         this.socket = socket;
 
         $scope.$on('$destroy', function () {
@@ -100,9 +100,9 @@ class GameController {
             }
         })
 
-        $scope.$watchCollection('actions', function (newActions, oldActions) {
+        //TODO titles.findNearby([newActions.length - 1])
+        $scope.$watchCollection(() => this.actions, (newActions, oldActions) => {
             console.log('jeb z lasera', newActions, oldActions)
-        //    [newActions.length - 1]
         });
 
         //TODO remove hack
