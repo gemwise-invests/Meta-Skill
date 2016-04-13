@@ -65,8 +65,10 @@ ActionSchema.statics.move = function move(direction, user) {
 //TODO finish
 ActionSchema.statics.findLastMove = (user) =>
     User.findOne({email: user.email}).exec()
-        .then(dbUser => Action.find({user: dbUser}))
-        .tap(console.log)
+        .then(dbUser => Action.find({user: dbUser})
+            .select({_id: 0, __v: 0, user: 0})
+            .exec()
+        )
 
 let Action = mongoose.model('Action', ActionSchema)
 
