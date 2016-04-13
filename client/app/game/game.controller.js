@@ -136,7 +136,7 @@ class GameController {
 
     move(direction) {
         this.$http.post('/api/actions/move', {to: direction}).then(response => {
-            return getStatus();
+            return this.getStatus();
         });
     }
 }
