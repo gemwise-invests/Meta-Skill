@@ -250,6 +250,12 @@ UserSchema.methods = {
         return this.save().then(() => ({
             message: 'Much awesome! You won! and Gained level!', statusCode: 417
         }))
+    },
+
+    //TODO merge with gainLevel()
+    move(newPos) {
+        this.character.pos = newPos;
+        return this.save();
     }
 }
 

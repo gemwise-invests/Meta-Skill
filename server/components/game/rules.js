@@ -6,6 +6,7 @@ module.exports = function gameRules() {
         isFinished
     }
 
+    // TODO remove
     function isAllowed(from, to) {
         return true;
     }

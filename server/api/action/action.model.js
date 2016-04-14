@@ -59,6 +59,9 @@ ActionSchema.statics.move = function move(direction, user) {
                 user
             }).save()
         )
+        .tap(() => {
+            user.move(newPos)
+        })
         .then(title => gameRules().isFinished(title, user))
 }
 
