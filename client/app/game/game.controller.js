@@ -106,7 +106,7 @@ class GameController {
             if (!newActions) {
                 return
             }
-            console.log('kichoo to you', _.last(newActions), 'old', oldActions)
+            this.getStatus()
         });
 
         //TODO remove hack
@@ -146,9 +146,7 @@ class GameController {
     }
 
     move(direction) {
-        this.$http.post('/api/actions/move', {to: direction}).then(response => {
-            return this.getStatus();
-        });
+        this.$http.post('/api/actions/move', {to: direction});
     }
 }
 
