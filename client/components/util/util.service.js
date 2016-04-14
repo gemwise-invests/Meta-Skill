@@ -60,6 +60,6 @@ function UtilService($window) {
 }
 
 angular.module('mudServerApp.util')
-  .factory('Util', UtilService);
-
+  .factory('Util', UtilService)
+  .constant("_", _)
 })();

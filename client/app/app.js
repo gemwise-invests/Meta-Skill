@@ -5,6 +5,7 @@ angular.module('mudServerApp', [
         'mudServerApp.admin',
         'mudServerApp.constants',
         'mudServerApp.game',
+        'mudServerApp.wesnoth',
         'ngCookies',
         'ngResource',
         'ngSanitize',
