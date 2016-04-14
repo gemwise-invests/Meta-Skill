@@ -38,8 +38,7 @@ class GameController {
                 return
             }
             this.getStatus()
-            // console.log('kichoo to you', _.last(newActions), 'old', oldActions)
-        })
+        });
 
         // leave this debug object
         window.scope = this;
@@ -79,9 +78,7 @@ class GameController {
     }
 
     move(direction) {
-        this.$http.post('/api/actions/move', {to: direction}).then(response => {
-            return this.getStatus();
-        });
+        this.$http.post('/api/actions/move', {to: direction});
     }
 }
 
