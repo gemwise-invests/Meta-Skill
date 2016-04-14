@@ -311,7 +311,25 @@ User.find({}).remove()
                 provider: 'local',
                 name: 'Test User',
                 email: 'test@test.com',
-                password: 'test'
+                password: 'test',
+                character: {
+                    name: 'Magento',
+                    level: 0,
+                    pos: {
+                        q: 0,
+                        r: 0
+                    },
+                    items: [{
+                        name: 'Hammer'
+                    }],
+                    stats: {
+                        str: 10,
+                        mov: 10,
+                        agl: 10,
+                        maxHp: 10,
+                        hp: 10
+                    }
+                }
             }, {
                 provider: 'local',
                 role: 'admin',
