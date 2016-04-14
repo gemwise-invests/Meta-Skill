@@ -6,6 +6,19 @@ Game for interviews
 
 ## Getting Started
 
+Game checks how candidate is confortable with modern web technologies. We might show a game to candidate, and ask some simple questions.
+
+## Example questions
+- Our client reports that he could not move his character to city...
+- How you would redesign UI?
+- There is big security leak in the app.. can you find it?
+
+## What to look for
+- Look in candidate know how to use browser debugging tools
+- KnowHow about server responses codes
+- KnowHow about websockets, canvas, angular
+- Candidate should be able to find window.scope
+- Candidate might be able to point our couple bad style points in the frontend app
 
 ### Developing
 
@@ -49,3 +62,4 @@ valid directions are [ 'n', 'ne', 'se', 's', 'sw', 'nw' ]
 
 `curl -X POST 'localhost:9000/api/actions/move' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NzBkMGFkMGQxMzU3OGQ4NDU1NmViYTkiLCJyb2xlIjoidXNlciIsImlhdCI6MTQ2MDQ3MjU4MiwiZXhwIjoxNDYwNDkwNTgyfQ.YCmURip3xMhV8ySmydV1tVOBIGT2xP90tvXIldTOAZ4' -H 'Cookie: XSRF-TOKEN=ATUdw5PoTAo31JESi1njSjCiw1niFh4wuz4EE%3D; connect.sid=s%3AYWdCpGXQDq4zfAiM0TV_V9rQ_-8vdMDI.EBHcz1nUkZuetMEbZvaz0OnFXILasRKYUcciNP%2FeoIg; token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NzBkMGFkMGQxMzU3OGQ4NDU1NmViYTkiLCJyb2xlIjoidXNlciIsImlhdCI6MTQ2MDQ3MjU4MiwiZXhwIjoxNDYwNDkwNTgyfQ.YCmURip3xMhV8ySmydV1tVOBIGT2xP90tvXIldTOAZ4'\
  -H 'X-XSRF-TOKEN: ATUdw5PoTAo31JESi1njSjCiw1niFh4wuz4EE=' -H "Content-type: application/json" -d '{"to":"n"}'`
+
