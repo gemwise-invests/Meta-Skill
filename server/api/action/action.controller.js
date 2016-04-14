@@ -23,7 +23,7 @@ export function move(req, res) {
 }
 
 export function status(req, res) {
-
+    console.warn('BAZINGA', req.user)
     const user = req.user;
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.character.pos))

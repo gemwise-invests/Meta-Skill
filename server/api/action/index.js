@@ -7,9 +7,8 @@ const controller = require('./action.controller')
 
 let router = express.Router()
 
-//TODO registered user
-router.get('/move',/* auth.isAuthenticated(), */controller.findLastMove)
-router.post('/move',/* auth.isAuthenticated(), */controller.move)
-router.get('/status', controller.status)
+router.get('/move', auth.isAuthenticated(), controller.findLastMove)
+router.post('/move', auth.isAuthenticated(), controller.move)
+router.get('/status', auth.isAuthenticated(), controller.status)
 
 module.exports = router
