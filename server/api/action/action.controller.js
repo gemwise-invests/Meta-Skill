@@ -5,14 +5,8 @@ import Action from './action.model';
 import Tile from '../status/tile.model';
 import User from '../user/user.model'
 
-// TODO remove this hack
-const reqUserHack = {
-    pos: {q: 0, r: 0},
-    email: 'test@test.com'
-}
-
 export const findLastMove = (req, res) =>
-    Action.findLastMove(reqUserHack)
+    Action.findLastMove(req.user)
         .then(respondWithResult(res))
         .catch(handleError(res))
 
@@ -21,7 +15,6 @@ export function move(req, res) {
     if (!req.body.to) {
         throw new Error('Set content type | "to" is required')
     }
-    req.user = reqUserHack
 
     return User.findOne({email: req.user.email})
         .then(user => Action.move(req.body, user))
@@ -31,7 +24,7 @@ export function move(req, res) {
 
 export function status(req, res) {
 
-    const user = reqUserHack;
+    const user = req.user;
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.pos))
         .then(respondWithResult(res))
