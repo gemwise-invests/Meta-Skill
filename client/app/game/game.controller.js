@@ -22,7 +22,7 @@ class GameController {
         this.wesnothTiles = $element.find('wesnoth-tiles');
 
         this.getStatus();
-        this.$onInit();
+        // this.$onInit();
 
         this.loadImage("assets/images/hero.png").then(img => {
             this.onPostDraw = (ctx) => {
