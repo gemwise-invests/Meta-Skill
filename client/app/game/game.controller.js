@@ -26,9 +26,15 @@ class GameController {
 
         this.loadImage("assets/images/hero.png").then(img => {
             this.onPostDraw = (ctx) => {
-                ctx.drawImage(img,
-                    this.wesnothTiles[0].clientWidth / 2 - 25,
-                    this.wesnothTiles[0].clientHeight / 2 - 32);
+                if (this.character) {
+                    const offsetX = this.character.pos.q * 54;
+                    const offsetY = this.character.pos.r * 72 + this.character.pos.q * 36;
+                    console.log(offsetX, offsetY)
+                    ctx.drawImage(img,
+                        offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
+                        offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
+                }
+
             }
         })
 
@@ -47,6 +53,7 @@ class GameController {
     $onInit() {
         this.$http.get('/api/actions/move').then(response => {
             this.actions = response.data;
+
             this.socket.syncUpdates('action', this.actions);
         });
     }
@@ -66,7 +73,9 @@ class GameController {
 
     getStatus() {
         return this.$http.get('/api/actions/status').then(response => {
-            response.data.forEach(h => {
+            this.character = response.data.character;
+
+            response.data.tiles.forEach(h => {
                 this.$scope.model.set({
                     q: h.q, r: h.r,
                     terrain: this.Wesnoth.ETerrain[h.t],

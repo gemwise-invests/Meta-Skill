@@ -27,6 +27,10 @@ export function status(req, res) {
     const user = req.user;
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.character.pos))
+        .then(tiles => ({
+            character: user.character,
+            tiles: tiles
+        }))
         .then(respondWithResult(res))
         .catch(handleError(res))
 }
