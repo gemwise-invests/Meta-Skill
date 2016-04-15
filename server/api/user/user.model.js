@@ -248,7 +248,7 @@ UserSchema.methods = {
     gainLevel() {
         this.character.level += 1
         return this.save().then(() => ({
-            message: 'Much awesome! You won! and Gained level!', statusCode: 417
+            message: 'Much awesome! You Gained level!', statusCode: 417
         }))
     },
 

@@ -23,7 +23,6 @@ export function move(req, res) {
 }
 
 export function status(req, res) {
-    console.warn('BAZINGA', req.user)
     const user = req.user;
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.character.pos))
@@ -78,13 +77,6 @@ function respondWithResult(res, statusCode) {
     }
 }
 
-function saveUpdates(updates) {
-    return function (entity) {
-        var updated = _.merge(entity, updates)
-        return updated.save()
-    }
-}
-
 function handleEntityNotFound(res) {
     return function (entity) {
         if (!entity) {
@@ -117,16 +109,3 @@ export function create(req, res) {
         .then(respondWithResult(res, 201))
         .catch(handleError(res))
 }
-
-// Updates an existing Action in the DB
-export function update(req, res) {
-    if (req.body._id) {
-        delete req.body._id
-    }
-    return Action.findById(req.params.id).exec()
-        .then(handleEntityNotFound(res))
-        .then(saveUpdates(req.body))
-        .then(respondWithResult(res))
-        .catch(handleError(res))
-}
-

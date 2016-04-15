@@ -12,7 +12,7 @@ module.exports = function gameRules() {
     }
 
     function isFinished(tile, user) {
-        if ('SWAMP_WATER' === tile.t) {
+        if ('VILLAGE_DESERT' === tile.o) {
             return user.gainLevel()
         }
         return tile

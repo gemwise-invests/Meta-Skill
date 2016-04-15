@@ -33,11 +33,9 @@ class GameController {
                         offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
                         offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
                 }
-
             }
         })
 
-        //TODO titles.findNearby([newActions.length - 1])
         $scope.$watchCollection(() => this.actions, (newActions, oldActions) => {
             if (!newActions) {
                 return
