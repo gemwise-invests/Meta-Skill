@@ -77,35 +77,10 @@ function respondWithResult(res, statusCode) {
     }
 }
 
-function handleEntityNotFound(res) {
-    return function (entity) {
-        if (!entity) {
-            res.status(404).end();
-            return null;
-        }
-        return entity;
-    };
-}
-
 function handleError(res, statusCode) {
     return function (err) {
         statusCode = statusCode || err.statusCode || 500
         console.error(err.stack)
         res.status(statusCode).json({code: statusCode, err: err.message})
     }
-}
-
-// Gets a single Action from the DB
-export function show(req, res) {
-    return Action.findById(req.params.id).exec()
-        .then(handleEntityNotFound(res))
-        .then(respondWithResult(res))
-        .catch(handleError(res));
-}
-
-// Creates a new Action in the DB
-export function create(req, res) {
-    return Action.create(req.body)
-        .then(respondWithResult(res, 201))
-        .catch(handleError(res))
 }
