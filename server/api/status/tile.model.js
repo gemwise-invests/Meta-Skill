@@ -47,7 +47,7 @@ const cannotSeeThroughTerrain = [
     'MOUNTAIN_BASIC',   // Mm 8
     'MOUNTAIN_DRY',     // Md 9
     'MOUNTAIN_SNOW',    // Ms 10
-    'MOUNTAIN_VOLCANO', // Mv 11
+    'MOUNTAIN_VOLCANO'  // Mv 11
 ]
 
 const EOverlay = [
@@ -114,6 +114,7 @@ const TileSchema = new Schema({
 }, {timestamps: false});
 
 TileSchema.methods = {
+    //TODO rename this function
     canMoveInto() {
         if (_.contains(cannotCrossETerrain, this.t)) {
             throw new TileError('Cannot move into')
@@ -126,6 +127,47 @@ TileSchema.methods = {
     }
 }
 
+TileSchema.statics.findNearbyVisible = function(user) {
+    return Tile.find().select({_id: 0, __v: 0}).exec()
+        .then(tiles => filterBySight(tiles, user.character.pos))
+}
+
+const Tile = mongoose.model('Tile', TileSchema)
+export default Tile
+export {ETerrain, EOverlay, TileError, Tile}
+
+function add1(map, visible, q, r) {
+    visible.set(q + "," + r, map.get(q + "," + r));
+}
+
+function add7(map, visible, q, r) {
+    add1(map, visible, q, r);
+    add1(map, visible, q + 1, r);
+    add1(map, visible, q, r + 1);
+    add1(map, visible, q - 1, r);
+    add1(map, visible, q, r - 1);
+    add1(map, visible, q + 1, r - 1);
+    add1(map, visible, q - 1, r + 1);
+}
+
+function filterBySight(tiles, userPos) {
+    const map = new Map();
+
+    tiles.forEach(t => map.set((t.q - userPos.q) + "," + (t.r - userPos.r), t))
+    const visible = new Map();
+
+    add7(map, visible, 0, 0);
+
+    if (map.get("1,0").canSeeThrough()) add7(map, visible, 1, 0);
+    if (map.get("0,1").canSeeThrough()) add7(map, visible, 0, 1);
+    if (map.get("-1,0").canSeeThrough()) add7(map, visible, -1, 0);
+    if (map.get("0,-1").canSeeThrough()) add7(map, visible, 0, -1);
+    if (map.get("1,-1").canSeeThrough()) add7(map, visible, 1, -1);
+    if (map.get("-1,1").canSeeThrough()) add7(map, visible, -1, 1);
+
+    return Array.from(visible.values())
+}
+
 class TileError extends Error {
     constructor(message) {
         super(message)
@@ -134,7 +176,3 @@ class TileError extends Error {
         this.statusCode = 403
     }
 }
-
-const Tile = mongoose.model('Tile', TileSchema)
-export default Tile
-export {ETerrain, EOverlay, TileError, Tile}

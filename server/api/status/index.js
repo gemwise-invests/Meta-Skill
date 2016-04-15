@@ -1,17 +1,12 @@
-'use strict';
+'use strict'
 
-import * as auth from '../../auth/auth.service';
+import * as auth from '../../auth/auth.service'
 
-var express = require('express');
-var controller = require('./status.controller');
+const express = require('express')
+const controller = require('./status.controller')
 
-var router = express.Router();
+let router = express.Router()
 
-router.get('/', /*auth.isAuthenticated(),*/ controller.index);
-//router.get('/:id', controller.show);
-//router.post('/', controller.create);
-//router.put('/:id', controller.update);
-//router.patch('/:id', controller.update);
-//router.delete('/:id', controller.destroy);
+router.get('/', auth.isAuthenticated(), controller.myStatus)
 
-module.exports = router;
+module.exports = router

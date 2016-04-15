@@ -69,7 +69,7 @@ class GameController {
     }
 
     getStatus() {
-        return this.$http.get('/api/actions/status').then(response => {
+        return this.$http.get('/api/status').then(response => {
             this.character = response.data.character;
 
             response.data.tiles.forEach(h => {
