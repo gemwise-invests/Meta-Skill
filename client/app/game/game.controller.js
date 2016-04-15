@@ -29,7 +29,6 @@ class GameController {
                 if (this.character) {
                     const offsetX = this.character.pos.q * 54;
                     const offsetY = this.character.pos.r * 72 + this.character.pos.q * 36;
-                    console.log(offsetX, offsetY)
                     ctx.drawImage(img,
                         offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
                         offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
