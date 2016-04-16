@@ -1,6 +1,7 @@
-# mud-server
+# Game for interviews
 
-Game for interviews
+Most interview are borning or/and stressfull.
+Let's do interview in other way... by playing a game.
 
 ![wesnoth-tiles.png](https://raw.githubusercontent.com/syzer/game-recruitment/master/client/assets/images/wesnoth-tiles.png)
 
