@@ -1,8 +1,8 @@
 'use strict'
 
-import _ from 'lodash';
-import Action from './action.model';
-import Tile from '../status/tile.model';
+import _ from 'lodash'
+import Action from './action.model'
+import Tile from '../status/tile.model'
 import User from '../user/user.model'
 
 export const findLastMove = (req, res) =>
@@ -23,7 +23,7 @@ export function move(req, res) {
 }
 
 export function status(req, res) {
-    const user = req.user;
+    const user = req.user
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.character.pos))
         .then(tiles => ({
