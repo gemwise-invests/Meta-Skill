@@ -10,7 +10,7 @@ class GameController {
         this.socket = socket;
         this._ = _;
         this.Wesnoth = Wesnoth;
-        this.levelUp = character.levelUp;
+        this.character = character;
 
         $scope.$on('$destroy', function () {
             socket.unsyncUpdates('action');
@@ -27,13 +27,11 @@ class GameController {
 
         this.loadImage("assets/images/doge-astronaut.png").then(img => {
             this.onPostDraw = (ctx) => {
-                if (this.character) {
-                    const offsetX = this.character.pos.q * 54;
-                    const offsetY = this.character.pos.r * 72 + this.character.pos.q * 36;
-                    ctx.drawImage(img,
-                        offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
-                        offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
-                }
+                const offsetX = this.character.current.pos.q * 54;
+                const offsetY = this.character.current.pos.r * 72 + this.character.current.pos.q * 36;
+                ctx.drawImage(img,
+                    offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
+                    offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
             }
         })
 
@@ -71,7 +69,7 @@ class GameController {
 
     getStatus() {
         return this.$http.get('/api/status').then(response => {
-            this.character = response.data.character;
+            this.character.setCharacter(response.data.character)
 
             response.data.tiles.forEach(h => {
                 this.$scope.model.set({
@@ -84,12 +82,14 @@ class GameController {
         });
     }
 
+    // checks if game is won!
     move(direction) {
         this.$http.post('/api/actions/move', {to: direction}).then(res => {
+            console.warn('log', this.character.current)
             if (217 !== res.status) {
                 return
             }
-            this.levelUp(res.data.message).then(function (event) {
+            this.character.levelUp(res.data.message).then(function (event) {
                 // TODO
                 // sth.apply(event, args)
                 console.warn(event)
