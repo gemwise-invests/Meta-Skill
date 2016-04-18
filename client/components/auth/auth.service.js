@@ -93,7 +93,10 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
                 return safeCb(callback)(null);
             }, function (err) {
                 return safeCb(callback)(err);
-            }).$promise;
+            }).$promise.then(character => {
+                currentUser.character.avatarImg = character.avatarImg;
+                return character;
+            });
         },
 
         /**

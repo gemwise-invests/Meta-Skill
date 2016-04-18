@@ -11,7 +11,7 @@ function UserResource($resource) {
             }
         },
         changeAvatar: {
-            method: 'PUT',
+            method: 'POST',
             params: {
                 controller: 'avatar'
             }

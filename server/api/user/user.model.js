@@ -255,8 +255,23 @@ UserSchema.methods = {
 
     //TODO merge with gainLevel()
     move(newPos) {
-        this.character.pos = newPos;
-        return this.save();
+        this.character.pos = newPos
+        return this.save()
+    },
+
+    changeAvatar(newAvatar) {
+        const avatarImg = {
+            grumpy: 'assets/images/grumpy-cat.png',
+            viking: 'assets/images/viking.png',
+            doge: 'assets/images/doge-astronaut.png'
+        }[newAvatar]
+
+        if (!avatarImg) {
+            throw new Error('User unknown avatar')
+        }
+
+        this.character.avatarImg = avatarImg
+        return this.save()
     }
 }
 

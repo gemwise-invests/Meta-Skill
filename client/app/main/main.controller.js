@@ -2,14 +2,19 @@
 
 class MainController {
 
-    constructor($scope, $state) {
+    constructor($scope, $state, Auth) {
         this.$scope = $scope;
         this.$state = $state;
+        this.Auth = Auth;
     }
 
     pickAvatar(avatar) {
-        console.warn(avatar)
-        this.$state.go('game')
+        this.Auth.changeAvatar(avatar)
+            .then(resp => {
+                console.warn('chenge resp', resp);
+                this.$state.go('game');
+            })
+            .catch(console.error);
     }
 }
 

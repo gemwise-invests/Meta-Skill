@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-import User from './user.model';
-import passport from 'passport';
-import config from '../../config/environment';
-import jwt from 'jsonwebtoken';
+import User from './user.model'
+import passport from 'passport'
+import config from '../../config/environment'
+import jwt from 'jsonwebtoken'
 
 function validationError(res, statusCode) {
     statusCode = statusCode || 422;
@@ -97,6 +97,19 @@ export function changePassword(req, res, next) {
                 return res.status(403).end();
             }
         });
+}
+
+export function changeAvatar(req, res, next) {
+    const userId = req.user._id
+    const newAvatar = req.body.newAvatar
+
+    return User.findById(userId).exec()
+        .then(user => user.changeAvatar(newAvatar))
+        .then(dbUser => {
+            return res.status(200).json(dbUser.character)
+        }).catch((err) =>
+            res.status(403).end()
+        )
 }
 
 /**

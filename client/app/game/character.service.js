@@ -3,7 +3,7 @@ angular.module('mudServerApp')
         'use strict'
 
         // TODO its ugly API
-        let character;
+        let character = {};
 
         return {
             get current() {
