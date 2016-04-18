@@ -25,7 +25,7 @@ class GameController {
         this.getStatus();
         this.$onInit();
 
-        this.loadImage("assets/images/hero.png").then(img => {
+        this.loadImage("assets/images/doge-astronaut.png").then(img => {
             this.onPostDraw = (ctx) => {
                 if (this.character) {
                     const offsetX = this.character.pos.q * 54;
