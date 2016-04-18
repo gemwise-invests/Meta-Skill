@@ -83,16 +83,19 @@ class GameController {
                     overlay: this.Wesnoth.EOverlay[h.o],
                     fog: false
                 })
-            })
+            });
 
-            console.warn('users', response.data.characters)
+            // TODO kichoo to you... can we resolve images their promises again?
+            response.data.characters
+                .filter(c => c.avatarImg)
+                .map(c => ({current: c}))
+                .map(c => this.printCharacterImg(c));
         });
     }
 
     // checks if game is won!
     move(direction) {
         this.$http.post('/api/actions/move', {to: direction}).then(res => {
-            console.warn('log', this.character.current)
             if (217 !== res.status) {
                 return
             }
