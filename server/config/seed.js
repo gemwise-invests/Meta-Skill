@@ -309,6 +309,41 @@ User.find({}).remove()
     .then(() => {
         User.create({
                 provider: 'local',
+                role: 'admin',
+                name: 'Admin',
+                email: 'admin@admin.com',
+                password: 'admin'
+            },
+            {
+                provider: 'local',
+                name: 'Doge User',
+                email: 'doge@doge.com',
+                password: 'doge',
+                character: {
+                    name: 'Doge',
+                    level: 0,
+                    pos: {
+                        q: 0,
+                        r: 0
+                    },
+                    items: [{
+                        name: 'holocracy'
+                    }, {
+                        name: 'Clean code'
+                    }, {
+                        name: 'Much Agile Scrum'
+                    }],
+                    stats: {
+                        str: 10,
+                        mov: 10,
+                        agl: 10,
+                        maxHp: 10,
+                        hp: 10
+                    }
+                }
+            },
+            {
+                provider: 'local',
                 name: 'Test User',
                 email: 'test@test.com',
                 password: 'test',
@@ -330,12 +365,6 @@ User.find({}).remove()
                         hp: 10
                     }
                 }
-            }, {
-                provider: 'local',
-                role: 'admin',
-                name: 'Admin',
-                email: 'admin@admin.com',
-                password: 'admin'
             })
             .then(() => {
                 console.log('finished populating users')
