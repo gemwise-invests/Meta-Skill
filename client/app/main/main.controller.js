@@ -1,7 +1,16 @@
 'use strict';
 
 class MainController {
-    // empty
+
+    constructor($scope, $state) {
+        this.$scope = $scope;
+        this.$state = $state;
+    }
+
+    pickAvatar(avatar) {
+        console.warn(avatar)
+        this.$state.go('game')
+    }
 }
 
 angular.module('mudServerApp')
