@@ -86,10 +86,10 @@ class GameController {
             });
 
             // TODO kichoo to you... can we resolve images their promises again?
-            response.data.characters
-                .filter(c => c.avatarImg)
-                .map(c => ({current: c}))
-                .map(c => this.printCharacterImg(c));
+            // response.data.characters
+            //     .filter(c => c.avatarImg)
+            //     .map(c => ({current: c}))
+            //     .map(c => this.printCharacterImg(c));
         });
     }
 

@@ -11,7 +11,7 @@ export function respondWithResult(res, statusCode) {
 export function handleError(res, statusCode) {
     return function (err) {
         statusCode = statusCode || err.statusCode || 500
-        console.error(err.stack)
+        err.name !== 'TileError' && console.error(err.stack)
         res.status(statusCode).json({code: statusCode, err: err.message})
     }
 }
