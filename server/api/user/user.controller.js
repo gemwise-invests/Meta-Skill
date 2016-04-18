@@ -24,7 +24,7 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
-    return User.find({}, '-salt -password').exec()
+    return User.findSafe({})
         .then(users => {
             res.status(200).json(users);
         })

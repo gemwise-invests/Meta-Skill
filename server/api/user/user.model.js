@@ -259,4 +259,17 @@ UserSchema.methods = {
     }
 }
 
+// a safer way to find users
+UserSchema.statics.findSafe = function (query) {
+    query = query || {}
+    return this.find(query, '-salt -password').exec()
+}
+
+// TODO nearby
+// not safe here, use _.pick
+UserSchema.statics.findNearbyCharacters = function (user) {
+    return this.findSafe()
+        .then(dbUsers => dbUsers.map(el => el.character))
+}
+
 export default mongoose.model('User', UserSchema)

@@ -116,14 +116,14 @@ const TileSchema = new Schema({
 TileSchema.methods = {
     //TODO rename this function
     canMoveInto() {
-        if (_.contains(cannotCrossETerrain, this.t)) {
+        if (_.includes(cannotCrossETerrain, this.t)) {
             throw new TileError('Cannot move into')
         }
         return this
     },
 
     canSeeThrough() {
-        return !_.contains(cannotSeeThroughTerrain, this.t)
+        return !_.includes(cannotSeeThroughTerrain, this.t)
     }
 }
 
