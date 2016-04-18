@@ -23,6 +23,8 @@ angular.module('mudServerApp')
         // Public API here
         return {
 
+            openModal,
+
             /* Confirmation modals */
             confirm: {
 
