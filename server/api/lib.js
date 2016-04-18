@@ -1,6 +1,7 @@
 export function respondWithResult(res, statusCode) {
-    statusCode = statusCode || 200
     return function (entity) {
+        // override status code from entity
+        statusCode = entity.statusCode || statusCode || 200
         if (entity) {
             res.status(statusCode).json(entity)
         }
