@@ -11,7 +11,6 @@ class MainController {
     pickAvatar(avatar) {
         this.Auth.changeAvatar(avatar)
             .then(resp => {
-                console.warn('chenge resp', resp);
                 this.$state.go('game');
             })
             .catch(console.error);

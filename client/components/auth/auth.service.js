@@ -86,6 +86,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
             }).$promise;
         },
 
+        // => user.character
         changeAvatar(newAvatar, callback) {
             return User.changeAvatar({id: currentUser._id}, {
                 newAvatar
@@ -95,7 +96,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
                 return safeCb(callback)(err);
             }).$promise.then(character => {
                 currentUser.character.avatarImg = character.avatarImg;
-                return character;
+                return currentUser.character;
             });
         },
 
@@ -121,6 +122,10 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
                     safeCb(callback)({});
                     return {};
                 });
+        },
+
+        setCharacter(newCharacter) {
+            return currentUser.character = newCharacter
         },
 
         /**

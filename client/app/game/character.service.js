@@ -2,16 +2,11 @@ angular.module('mudServerApp')
     .factory('character', function (Auth, Modal) {
         'use strict'
 
-        // TODO its ugly API
-        let character = {};
-
         return {
             get current() {
-                return character || Auth.getCurrentUser().character
+                return Auth.getCurrentUser() && Auth.getCurrentUser().character
             },
-            setCharacter(newCharacter) {
-                return character = newCharacter
-            },
+            setCharacter: Auth.setCharacter,
             levelUp(msg, user) {
                 const popup = Modal.openModal({
                     modal: {
