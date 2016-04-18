@@ -25,16 +25,6 @@ class GameController {
         this.getStatus();
         this.$onInit();
 
-        this.loadImage("assets/images/doge-astronaut.png").then(img => {
-            this.onPostDraw = (ctx) => {
-                const offsetX = this.character.current.pos.q * 54;
-                const offsetY = this.character.current.pos.r * 72 + this.character.current.pos.q * 36;
-                ctx.drawImage(img,
-                    offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
-                    offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
-            }
-        })
-
         $scope.$watchCollection(() => this.actions, (newActions, oldActions) => {
             if (!newActions) {
                 return
@@ -51,6 +41,21 @@ class GameController {
             this.actions = response.data;
 
             this.socket.syncUpdates('action', this.actions);
+        });
+
+        this.printCharacterImg(this.character);
+    }
+
+    // TODO able to bind other characters
+    printCharacterImg(character) {
+        this.loadImage('/' + character.current.avatarImg).then(img => {
+            this.onPostDraw = (ctx) => {
+                const offsetX = character.current.pos.q * 54;
+                const offsetY = character.current.pos.r * 72 + character.current.pos.q * 36;
+                ctx.drawImage(img,
+                    offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
+                    offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
+            }
         });
     }
 
@@ -79,6 +84,8 @@ class GameController {
                     fog: false
                 })
             })
+
+            console.warn('users', response.data.characters)
         });
     }
 

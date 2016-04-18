@@ -327,7 +327,7 @@ User.find({}).remove()
                         r: 0
                     },
                     items: [{
-                        name: 'holocracy'
+                        name: 'holocrazy'
                     }, {
                         name: 'Clean code'
                     }, {
@@ -339,7 +339,8 @@ User.find({}).remove()
                         agl: 10,
                         maxHp: 10,
                         hp: 10
-                    }
+                    },
+                    avatarImg: "assets/images/doge-astronaut.png"
                 }
             },
             {
@@ -363,7 +364,8 @@ User.find({}).remove()
                         agl: 10,
                         maxHp: 10,
                         hp: 10
-                    }
+                    },
+                    avatarImg: "assets/images/doge-lion.png"
                 }
             })
             .then(() => {

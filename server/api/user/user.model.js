@@ -47,7 +47,8 @@ var UserSchema = new Schema({
             agl: Number,
             maxHp: Number,
             hp: Number
-        }
+        },
+        avatarImg: String
     }
 })
 
