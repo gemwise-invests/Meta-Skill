@@ -2,7 +2,7 @@
 
 class GameController {
 
-    constructor($scope, $http, socket, $element, Wesnoth, Modal, _) {
+    constructor($scope, $http, socket, $element, Wesnoth, character, _) {
         this.$scope = $scope;
         this.$http = $http;
         $scope.model = Wesnoth.HexMap;
@@ -10,7 +10,7 @@ class GameController {
         this.socket = socket;
         this._ = _;
         this.Wesnoth = Wesnoth;
-        this.Modal = Modal;
+        this.levelUp = character.levelUp;
 
         $scope.$on('$destroy', function () {
             socket.unsyncUpdates('action');
@@ -84,41 +84,16 @@ class GameController {
         });
     }
 
-    //TODO service
-    levelUp(msg) {
-        const popup = this.Modal.openModal({
-            modal: {
-                dismissable: true,
-                title: 'Congratulations!',
-                html: `<p><strong> ${msg} </strong></p>`,
-                buttons: [{
-                    classes: 'btn-success',
-                    text: 'LevelUp',
-                    click: (e) => {
-                        popup.close(e)
-                    }
-                }, {
-                    classes: 'btn-default',
-                    text: 'Cancel',
-                    click: (e) => {
-                        popup.dismiss(e);
-                    }
-                }]
-            }
-        }, 'modal-success')
-
-        return popup.result
-    }
-
     move(direction) {
         this.$http.post('/api/actions/move', {to: direction}).then(res => {
-            if (217 === res.status) {
-                this.levelUp(res.data.message).then(function (event) {
-                    // TODO
-                    // sth.apply(event, args)
-                    console.warn(event)
-                })
+            if (217 !== res.status) {
+                return
             }
+            this.levelUp(res.data.message).then(function (event) {
+                // TODO
+                // sth.apply(event, args)
+                console.warn(event)
+            })
         })
     }
 
