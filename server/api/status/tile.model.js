@@ -127,7 +127,7 @@ TileSchema.methods = {
     }
 }
 
-TileSchema.statics.findNearbyVisible = function(user) {
+TileSchema.statics.findNearbyVisible = function (user) {
     return Tile.find().select({_id: 0, __v: 0}).exec()
         .then(tiles => filterBySight(tiles, user.character.pos))
 }
@@ -137,33 +137,34 @@ export default Tile
 export {ETerrain, EOverlay, TileError, Tile}
 
 function add1(map, visible, q, r) {
-    visible.set(q + "," + r, map.get(q + "," + r));
+    visible.set(q + "," + r, map.get(q + "," + r))
 }
 
 function add7(map, visible, q, r) {
-    add1(map, visible, q, r);
-    add1(map, visible, q + 1, r);
-    add1(map, visible, q, r + 1);
-    add1(map, visible, q - 1, r);
-    add1(map, visible, q, r - 1);
-    add1(map, visible, q + 1, r - 1);
-    add1(map, visible, q - 1, r + 1);
+    add1(map, visible, q, r)
+    add1(map, visible, q + 1, r)
+    add1(map, visible, q, r + 1)
+    add1(map, visible, q - 1, r)
+    add1(map, visible, q, r - 1)
+    add1(map, visible, q + 1, r - 1)
+    add1(map, visible, q - 1, r + 1)
 }
 
 function filterBySight(tiles, userPos) {
-    const map = new Map();
+    const map = new Map()
+    const visible = new Map()
 
-    tiles.forEach(t => map.set((t.q - userPos.q) + "," + (t.r - userPos.r), t))
-    const visible = new Map();
+    tiles.forEach(t =>
+        map.set((t.q - userPos.q) + "," + (t.r - userPos.r), t))
 
-    add7(map, visible, 0, 0);
+    add7(map, visible, 0, 0)
 
-    if (map.get("1,0").canSeeThrough()) add7(map, visible, 1, 0);
-    if (map.get("0,1").canSeeThrough()) add7(map, visible, 0, 1);
-    if (map.get("-1,0").canSeeThrough()) add7(map, visible, -1, 0);
-    if (map.get("0,-1").canSeeThrough()) add7(map, visible, 0, -1);
-    if (map.get("1,-1").canSeeThrough()) add7(map, visible, 1, -1);
-    if (map.get("-1,1").canSeeThrough()) add7(map, visible, -1, 1);
+    if (map.get("1,0").canSeeThrough()) add7(map, visible, 1, 0)
+    if (map.get("0,1").canSeeThrough()) add7(map, visible, 0, 1)
+    if (map.get("-1,0").canSeeThrough()) add7(map, visible, -1, 0)
+    if (map.get("0,-1").canSeeThrough()) add7(map, visible, 0, -1)
+    if (map.get("1,-1").canSeeThrough()) add7(map, visible, 1, -1)
+    if (map.get("-1,1").canSeeThrough()) add7(map, visible, -1, 1)
 
     return Array.from(visible.values())
 }
