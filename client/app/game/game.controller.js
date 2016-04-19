@@ -72,17 +72,26 @@ class GameController {
         });
     }
 
+    newTile(h, fog) {
+        return {
+            q: h.q, r: h.r,
+            terrain: this.Wesnoth.ETerrain[h.t],
+            overlay: this.Wesnoth.EOverlay[h.o],
+            fog
+        }
+    }
+
     getStatus() {
         return this.$http.get('/api/status').then(response => {
             this.character.setCharacter(response.data.character)
 
+            // TODO for of war
+            this.$scope.model.rows.forEach(h => {
+                this.$scope.model.set(this.newTile(h, true))
+            });
+
             response.data.tiles.forEach(h => {
-                this.$scope.model.set({
-                    q: h.q, r: h.r,
-                    terrain: this.Wesnoth.ETerrain[h.t],
-                    overlay: this.Wesnoth.EOverlay[h.o],
-                    fog: false
-                })
+                this.$scope.model.set(this.newTile(h, false))
             });
 
             // TODO kichoo to you... can we resolve images their promises again?
