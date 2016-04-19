@@ -259,11 +259,14 @@ UserSchema.methods = {
         return this.save()
     },
 
+    //TODO save just a user choice and level,
+    // to allow user gain new avatar thu levels
     changeAvatar(newAvatar) {
         const avatarImg = {
             grumpy: 'assets/images/grumpy-cat.png',
             viking: 'assets/images/viking.png',
-            doge: 'assets/images/doge-astronaut.png'
+            doge: 'assets/images/doge-astronaut.png',
+            product: 'assets/images/concrete-product.png'
         }[newAvatar]
 
         if (!avatarImg) {
