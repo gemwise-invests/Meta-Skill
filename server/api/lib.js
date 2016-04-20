@@ -15,3 +15,10 @@ export function handleError(res, statusCode) {
         res.status(statusCode).json({code: statusCode, err: err.message})
     }
 }
+
+export function validationError(res, statusCode) {
+    statusCode = statusCode || 422
+    return function (err) {
+        res.status(statusCode).json(err)
+    }
+}
