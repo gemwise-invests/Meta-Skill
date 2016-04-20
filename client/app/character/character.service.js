@@ -31,6 +31,19 @@ angular.module('mudServerApp')
                 }, 'modal-success')
 
                 return popup.result
-            }
+            },
+            fakeBestPlayer: () => ({
+                name: 'Doge',
+                level: 3,
+                items: ['Doge Coins'],
+                stats: {
+                    str: 20,
+                    mov: 38,
+                    agl: 10,
+                    maxHp: 22,
+                    hp: 13
+                },
+                avatarImg: 'doge'
+            })
         }
     })

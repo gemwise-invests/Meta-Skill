@@ -1,5 +1,5 @@
 angular.module('mudServerApp')
-    .directive('keuleCard', function () {
+    .directive('kleineEuleCard', function () {
         return {
             restrict: 'EA',
             scope: {

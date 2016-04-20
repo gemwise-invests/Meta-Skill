@@ -1,33 +1,45 @@
 <header class="hero-unit" id="banner">
     <div class="container">
-        <h1>Your Avatar</h1>
-        <!--TODO user character picking-->
+        <h1>Your Avatar {{vm.avatar.name}}</h1>
         <div class="row">
-            <!-- TODO display avatar items -->
-            <viking-card pick-avatar="vm.pickAvatar"></viking-card>
-            <div class="col-sm-6 col-md-8">
-                <div class="row">
-                    <canvas id="doughnut" class="chart chart-doughnut" chart-colours="vm.colors"
-                            chart-data="vm.data" chart-labels="vm.labels">
-                    </canvas>
+            <!--TODO change server avatars/type expand this switch-->
+            <kleine-eule-card ng-if="'Doge' !== vm.avatar.name" pick-avatar="vm.pickAvatar"></kleine-eule-card>
+            <doge-card ng-if="'Doge' === vm.avatar.name" pick-avatar="vm.pickAvatar"></doge-card>
+            <div class="col-sm-6 col-md-4">
+                <h3>Skills</h3>
+                <canvas id="bar" class="chart chart-bar" chart-colours="vm.colors"
+                        chart-data="vm.stats" chart-labels="vm.statsLabels" chart-series="vm.series">
+                </canvas>
+
+                <div class="row upgrade-button" ng-show="vm.freeXp > 0">
+                    <button class="btn btn-default btn-lg" ng-click="vm.addStats('agl')">+</button>
+                    <button class="btn btn-default btn-lg" ng-click="vm.addStats('hp')">+</button>
+                    <button class="btn btn-default btn-lg" ng-click="vm.addStats('maxHp')">+</button>
+                    <button class="btn btn-default btn-lg" ng-click="vm.addStats('mov')">+</button>
+                    <button class="btn btn-default btn-lg" ng-click="vm.addStats('str')">+</button>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h5>Statistics</h5>
-                        <canvas id="bar" class="chart chart-bar" chart-colours="vm.colors"
-                                chart-data="vm.stats" chart-labels="vm.statsLabels" chart-series="vm.series">
-                        </canvas>
-                        <div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div>
-                            <p>Statistics for a level</p>
-                            <p>AWESOMRNESS</p>
-                            <p>WOW</p>
-                            <p>+ 100 XP</p>
-                        </div>
+
+                <div class="input-group" ng-show="vm.freeXp > 0">
+                    <div class="input-group-addon">Left upgrades</div>
+                    <input ng-model="vm.freeXp" type="text" class="form-control" id="exampleInputAmount"
+                           placeholder="Upgrades">
+                </div>
+
+                <div class="row items">
+                    <h3>Player items</h3>
+                    <div class="list-group" ng-repeat="item in vm.avatar.items">
+                        <a class="list-group-item"><strong>{{item.name}}</strong></a>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <h3>Level performance</h3>
+                <canvas id="doughnut" class="chart chart-doughnut" chart-colours="vm.colors"
+                        chart-data="vm.data" chart-labels="vm.labels">
+                </canvas>
+                <h4>Fox hunting facial accessory by jingo. mustachioed brad pitt albert einstein will you do the fandango, derek griffiths facial accessory brad pitt face</h4>
+                <h4>broom mustachioed albert einstein will you do the fandango east european fox hunting stache by jingo. et, et brad pitt hold steady keyboardist facial accessory stache mustachioed blue oyster bar bruce forsyth will you do the fandango albert einstein east european derek griffiths stiff upper lip fox hunting by jingo. face broom?</h4>
             </div>
         </div>
     </div>
