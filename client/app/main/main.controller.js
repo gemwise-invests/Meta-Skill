@@ -9,9 +9,10 @@ class MainController {
     }
 
     pickAvatar(avatar) {
-        this.Auth.changeAvatar(avatar)
+        let that = this.$parent.$ctrl;
+        that.Auth.changeAvatar(avatar)
             .then(resp => {
-                this.$state.go('game');
+                that.$state.go('game');
             })
             .catch(console.error);
     }
