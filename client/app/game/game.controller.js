@@ -87,13 +87,15 @@ class GameController {
 
             const tempTiles = [];
             this.$scope.model.iterate(h => {
-                tempTiles.push({
-                    q: h.q,
-                    r: h.r,
-                    terrain: h.terrain,
-                    overlay: h.overlay,
-                    fog: true
-                });
+                if (!h.fog && h.terrain !== this.Wesnoth.ETerrain.VOID) {
+                    tempTiles.push({
+                        q: h.q,
+                        r: h.r,
+                        terrain: h.terrain,
+                        overlay: h.overlay,
+                        fog: true
+                    });
+                }
             });
 
             tempTiles.forEach(h => this.$scope.model.set(h));
