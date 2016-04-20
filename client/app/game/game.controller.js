@@ -86,16 +86,14 @@ class GameController {
             this.character.setCharacter(response.data.character)
 
             const tempTiles = [];
-            this.$scope.model.rows.forEach(row => {
-                row.forEach(h => {
-                    tempTiles.push({
-                        q: h.q,
-                        r: h.r,
-                        terrain: h.terrain,
-                        overlay: h.overlay,
-                        fog: true
-                    });
-                })
+            this.$scope.model.iterate(h => {
+                tempTiles.push({
+                    q: h.q,
+                    r: h.r,
+                    terrain: h.terrain,
+                    overlay: h.overlay,
+                    fog: true
+                });
             });
 
             tempTiles.forEach(h => this.$scope.model.set(h));
