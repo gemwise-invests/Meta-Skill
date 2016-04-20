@@ -2,6 +2,7 @@ angular.module('mudServerApp')
     .directive('vikingCard', function () {
         console.log('compile');
         return {
+            restrict: 'EA',
             scope: {
                 model: "=",
                 onHexClicked: "&",

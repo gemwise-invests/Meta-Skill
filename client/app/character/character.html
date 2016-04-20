@@ -24,26 +24,24 @@
             </div>
             <div class="col-sm-6 col-md-8">
                 <div class="row">
-                    <canvas id="doughnut" class="chart chart-doughnut"
+                    <canvas id="doughnut" class="chart chart-doughnut" chart-colours="vm.colors"
                             chart-data="vm.data" chart-labels="vm.labels">
                     </canvas>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-6">
+                        <h5>Statistics</h5>
+                        <canvas id="bar" class="chart chart-bar" chart-colours="vm.colors"
+                                chart-data="vm.stats" chart-labels="vm.statsLabels" chart-series="vm.series">
+                        </canvas>
                         <div>
-                            <p>Statistics</p>
-                            <p>Strength</p>
-                            <p>Agility</p>
-                            <p>HP</p>
-                            <p>HP</p>
-                        </div>
                     </div>
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-6">
                         <div>
                             <p>Statistics for a level</p>
                             <p>AWESOMRNESS</p>
                             <p>WOW</p>
-                            <p>TODO</p>
+                            <p>+ 100 XP</p>
                         </div>
                     </div>
                 </div>
