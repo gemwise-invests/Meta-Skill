@@ -46,6 +46,10 @@ class CharacterController {
     $onInit() {
         console.log('oninit ok')
     }
+
+    pickAvatar(data) {
+        console.warn('wors', data)
+    }
 }
 
 angular.module('mudServerApp.character')
