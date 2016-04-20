@@ -6,13 +6,15 @@ angular.module('mudServerApp', [
         'mudServerApp.constants',
         'mudServerApp.game',
         'mudServerApp.wesnoth',
+        'mudServerApp.character',
         'ngCookies',
         'ngResource',
         'ngSanitize',
         'btford.socket-io',
         'ui.router',
         'ui.bootstrap',
-        'validation.match'
+        'validation.match',
+        'chart.js'
     ])
     .config(function($urlRouterProvider, $locationProvider) {
         $urlRouterProvider

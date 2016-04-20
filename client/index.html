@@ -18,6 +18,7 @@
     <!-- build:css(client) app/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -73,6 +74,8 @@
 <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
 <script src="bower_components/wesnoth-tiles/bin/wesnoth-tiles.js"></script>
 <script src="bower_components/angular-wesnoth-tiles/angular-wesnoth-tiles.js"></script>
+<script src="bower_components/Chart.js/Chart.js"></script>
+<script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
 <!-- endbower -->
 <script src="socket.io-client/socket.io.js"></script>
 <!-- endbuild -->
@@ -89,6 +92,10 @@
 <script src="app/admin/admin.controller.js"></script>
 <script src="app/admin/admin.router.js"></script>
 <script src="app/app.constant.js"></script>
+<script src="app/character/_character.js"></script>
+<script src="app/character/character.controller.js"></script>
+<script src="app/character/character.router.js"></script>
+<script src="app/character/character.service.js"></script>
 <script src="app/game/_game.js"></script>
 <script src="app/game/character.service.js"></script>
 <script src="app/game/game.controller.js"></script>

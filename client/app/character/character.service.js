@@ -1,5 +1,5 @@
 angular.module('mudServerApp')
-    .factory('character', function (Auth, Modal) {
+    .factory('character', function (Auth, Modal, $state) {
         'use strict'
 
         return {
@@ -18,6 +18,7 @@ angular.module('mudServerApp')
                             text: 'LevelUp',
                             click: (e) => {
                                 popup.close(e)
+                                $state.go('character')
                             }
                         }, {
                             classes: 'btn-default',
