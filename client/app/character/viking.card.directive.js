@@ -1,6 +1,5 @@
 angular.module('mudServerApp')
     .directive('vikingCard', function () {
-        console.log('compile');
         return {
             restrict: 'EA',
             scope: {
@@ -11,8 +10,6 @@ angular.module('mudServerApp')
                 onPreDraw: "&",
                 onPostDraw: "&"
             },
-            // controller: WesnothTiles.Angular.Controller.$controllerId
-            // template: "<viking-card></viking-card>",
             template: `
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail hover-grow">

@@ -266,7 +266,8 @@ UserSchema.methods = {
             grumpy: 'assets/images/grumpy-cat.png',
             viking: 'assets/images/viking.png',
             doge: 'assets/images/doge-astronaut.png',
-            product: 'assets/images/concrete-product.png'
+            product: 'assets/images/concrete-product.png',
+            'kleine-eule': 'assets/images/kleine-eule.png'
         }[newAvatar]
 
         if (!avatarImg) {

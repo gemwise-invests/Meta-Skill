@@ -24,7 +24,6 @@ class CharacterController {
         this.bestPlayer = {
             name: 'Doge',
             level: 3,
-            // pos:
             items: ['Doge Coins'],
             stats: {
                 str: 20,
@@ -35,7 +34,6 @@ class CharacterController {
             },
             avatarImg: 'doge'
         }
-        // const stats =
         this.statsLabels = _.keys(this.avatar.stats);
         this.series = ['You', 'Strongest Player'];
         this.stats = [
@@ -47,6 +45,10 @@ class CharacterController {
 
     $onInit() {
         console.log('oninit ok')
+    }
+
+    pickAvatar(data) {
+        console.warn('wors', data)
     }
 }
 
