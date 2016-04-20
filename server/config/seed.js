@@ -327,11 +327,11 @@ User.find({}).remove()
                         r: 0
                     },
                     items: [{
-                        name: 'holocrazy'
+                        name: 'Holocrazy'
                     }, {
                         name: 'Clean code'
                     }, {
-                        name: 'Much Agile Scrum'
+                        name: 'Bag of DogeCoins'
                     }],
                     stats: {
                         str: 10,
@@ -357,6 +357,8 @@ User.find({}).remove()
                     },
                     items: [{
                         name: 'Hammer'
+                    }, {
+                        name: 'Much Agile Scrum'
                     }],
                     stats: {
                         str: 10,
