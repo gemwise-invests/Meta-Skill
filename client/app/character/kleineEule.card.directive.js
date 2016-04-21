@@ -16,8 +16,8 @@ angular.module('mudServerApp')
                         <h3>Kleine Eule</h3>
                         <p><strong>About:</strong> You don't want to mess with this small owl. It has power of finding and killing its opponents.
                             Most owls do play a <strong><a href="http://www.bullshitbingo.net/cards/agile/">bullshit bingo</a></strong> during boring meetings.
-                            They wear a branded t-shirts to prove their worth.
-                            They have a powers of <strong>php</strong> and <strong>holocracy</strong>.
+                            They wear branded t-shirts to prove their worth.
+                            They have powers of <strong>php</strong> and <strong>holocracy</strong>.
                         </p>
                     </div>
                 </div>
