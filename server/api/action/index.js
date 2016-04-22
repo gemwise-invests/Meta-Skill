@@ -9,5 +9,6 @@ let router = express.Router()
 
 router.get('/move', auth.isAuthenticated(), controller.findLastMove)
 router.post('/move', auth.isAuthenticated(), controller.move)
+router.post('/attack', auth.isAuthenticated(), controller.attack)
 
 module.exports = router

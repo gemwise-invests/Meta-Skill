@@ -3,9 +3,10 @@
  * to disable, edit config/environment/index.js, and set `seedDB: false`
  */
 
-'use strict';
+'use strict'
 import Tile from '../api/status/tile.model'
 import User from '../api/user/user.model'
+import Action from '../api/action/action.model'
 
 Tile.find({}).remove()
     .then(() => {
@@ -322,17 +323,10 @@ User.find({}).remove()
                 character: {
                     name: 'Doge',
                     level: 0,
-                    pos: {
-                        q: 0,
-                        r: 0
-                    },
-                    items: [{
-                        name: 'Holocrazy'
-                    }, {
-                        name: 'Clean code'
-                    }, {
-                        name: 'Bag of DogeCoins'
-                    }],
+                    pos: {q: 0, r: 0},
+                    items: [
+                        {name: 'Holocracy'}, {name: 'Clean code'}, {name: 'Bag of DogeCoins'}
+                    ],
                     stats: {
                         str: 10,
                         mov: 10,
@@ -351,15 +345,10 @@ User.find({}).remove()
                 character: {
                     name: 'Magento',
                     level: 0,
-                    pos: {
-                        q: 0,
-                        r: 0
-                    },
-                    items: [{
-                        name: 'Hammer'
-                    }, {
-                        name: 'Much Agile Scrum'
-                    }],
+                    pos: {q: 0, r: 0},
+                    items: [
+                        {name: 'Hammer'}, {name: 'Much Agile Scrum'}
+                    ],
                     stats: {
                         str: 10,
                         mov: 10,
@@ -370,6 +359,7 @@ User.find({}).remove()
                     avatarImg: "assets/images/doge-lion.png"
                 }
             })
+            .then(() => Action.find({}).remove())
             .then(() => {
                 console.log('finished populating users')
             })

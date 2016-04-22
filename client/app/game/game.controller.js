@@ -105,8 +105,13 @@ class GameController {
     }
 
     // checks if game is won!
-    move(direction) {
-        this.$http.post('/api/actions/move', {to: direction}).then(res => {
+    move(direction, $event) {
+        const action = {
+            true: 'attack',
+            false: 'move'
+        }[$event.shiftKey]
+
+        this.$http.post(`/api/actions/${action}`, {to: direction}).then(res => {
             if (217 !== res.status) {
                 return
             }

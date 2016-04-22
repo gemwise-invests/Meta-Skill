@@ -42,11 +42,11 @@ var UserSchema = new Schema({
         },
         items: [],
         stats: {
+            agl: Number,
             str: Number,
             mov: Number,
-            agl: Number,
-            maxHp: Number,
-            hp: Number
+            hp: Number,
+            maxHp: Number
         },
         avatarImg: String
     }

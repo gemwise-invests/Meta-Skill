@@ -23,3 +23,10 @@ const moveUser = (req, res) =>
 
 // post user moves
 export const move = _.flow(requireProp, _.spread(moveUser))
+
+const attackTo = (req, res) =>
+    Action.attackTo(req.body, req.user)
+        .then(respondWithResult(res, 201))
+        .catch(handleError(res))
+
+export const attack = _.flow(requireProp, _.spread(attackTo))

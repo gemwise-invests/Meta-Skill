@@ -1,9 +1,10 @@
-'use strict';
+'use strict'
 
 import mongoose from 'mongoose'
 import {Tile, TileError} from '../status/tile.model'
 import gameRules from '../../components/game/rules'
 import User from '../user/user.model'
+import _ from 'lodash'
 
 //TODO MoveSchema separetly
 let ActionSchema = new mongoose.Schema({
@@ -12,9 +13,13 @@ let ActionSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    userTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     type: {
         type: String,
-        enum: ['move'],
+        enum: ['move', 'attack', 'pickup'],
         required: true
     },
     from: mongoose.Schema.Types.Object,
@@ -30,6 +35,15 @@ ActionSchema
         , 'This move is illegal.'
     )
 
+ActionSchema.statics.newAttack = (user, userTo) =>
+    (new Action({
+        user,
+        userTo,
+        type: 'attack',
+        from: user.character.pos,
+        to: userTo.character.pos
+    })).save()
+
 const toCoords = (direction) => ({
     n: {q: 0, r: -1},
     ne: {q: +1, r: -1},
@@ -39,12 +53,16 @@ const toCoords = (direction) => ({
     nw: {q: -1, r: 0}
 }[direction])
 
-ActionSchema.statics.move = function move(direction, user) {
-    let dPosition = toCoords(direction.to)
+function requireDirection(direction, user) {
+    const dPosition = toCoords(direction.to)
 
     if (!dPosition) {
         return Promise.reject(new TileError('Invalid coordinates'))
     }
+    return {dPosition, user}
+}
+
+ActionSchema.statics.move = _.flow(requireDirection, function move({dPosition, user}) {
     const playerPos = user.character.pos
     const newPos = {q: playerPos.q + dPosition.q, r: playerPos.r + dPosition.r}
 
@@ -63,7 +81,50 @@ ActionSchema.statics.move = function move(direction, user) {
             user.move(newPos)
         })
         .then(title => gameRules().isFinished(title, user))
-}
+})
+
+ActionSchema.statics.attackTo = _.flow(requireDirection, function attackTo({dPosition, user}) {
+    const playerPos = user.character.pos
+    const newPos = {q: playerPos.q + dPosition.q, r: playerPos.r + dPosition.r}
+
+    //TODO weapon stats 2*
+    //TODO randomnes
+    //TODO safe
+    return User.findSafe({
+            $and: [
+                {'character.pos.q': newPos.q},
+                {'character.pos.r': newPos.r}
+            ]
+        })
+        .then(dbUsers => {
+            return dbUsers.map(u => {
+                // TODO flatten or new character collection
+                if (u.character.stats.agl <= user.character.stats.str) {
+                    u.character.stats.hp -= user.character.stats.str
+                }
+                // hit back
+                if (user.character.stats.agl <= u.character.stats.str) {
+                    user.character.stats.hp -= u.character.stats.str
+                }
+                return u
+            })
+        })
+        .then(dbUsers =>
+            Promise.all(dbUsers.map(u => u.save()))
+        )
+        .then(attackedUsers => {
+            if (_.isEmpty(attackedUsers)) {
+                return []
+            }
+            console.log('attacked users', attackedUsers.map(u => u.character))
+            console.log('by', user.character)
+            return Promise.all(
+                //TODO maybe save users here
+                attackedUsers.map(u => Action.newAttack(user, u))
+            ).then(attacks => attacks.map(a => a.toJSON()))
+        })
+})
+
 
 //TODO finish
 ActionSchema.statics.findLastMove = (user) =>
@@ -73,6 +134,6 @@ ActionSchema.statics.findLastMove = (user) =>
             .exec()
         )
 
-let Action = mongoose.model('Action', ActionSchema)
+var Action = mongoose.model('Action', ActionSchema)
 
 export default Action
