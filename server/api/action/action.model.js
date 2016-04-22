@@ -29,11 +29,9 @@ let ActionSchema = new mongoose.Schema({
 ActionSchema
     .path('to')
     .validate((value, respond) =>
-            Tile.findOne({q: value.q, r: value.r}).exec()
-                .then(tile => tile.canMoveInto())
-                .then(respond)
-        , 'This move is illegal.'
-    )
+        Tile.findOne({q: value.q, r: value.r}).exec()
+            .then(tile => tile.canMoveInto())
+            .then(respond), 'This move is illegal.')
 
 ActionSchema.statics.newAttack = (user, userTo) =>
     (new Action({
