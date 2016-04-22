@@ -2,16 +2,17 @@
 
 class GameController {
 
-    constructor($scope, $http, socket, $element, Wesnoth, character, _) {
+    constructor($scope, $http, socket, $element, Wesnoth, character, imagesService, _) {
         this.$scope = $scope;
         this.$http = $http;
         $scope.model = Wesnoth.HexMap;
         this.actions = [];
         this.socket = socket;
         this._ = _;
+        this.enemies = [];
         this.Wesnoth = Wesnoth;
         this.character = character;
-
+        this.imagesService = imagesService;
         $scope.$on('$destroy', function () {
             socket.unsyncUpdates('action');
         });
@@ -42,34 +43,23 @@ class GameController {
 
             this.socket.syncUpdates('action', this.actions);
         });
-
-        this.printCharacterImg(this.character);
     }
 
     // TODO able to bind other characters
-    printCharacterImg(character) {
-        this.loadImage('/' + character.current.avatarImg).then(img => {
-            this.onPostDraw = (ctx) => {
-                const offsetX = character.current.pos.q * 54;
-                const offsetY = character.current.pos.r * 72 + character.current.pos.q * 36;
-                ctx.drawImage(img,
-                    offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
-                    offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
-            }
+    loadAndSaveAvatar(character) {
+        this.loadImage('/' + character.avatarImg).then(img => {
+            character.img = img;
         });
     }
 
-    loadImage(url) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => {
-                resolve(img);
-            }
-            img.onerror = () => {
-                reject();
-            };
-        });
+    drawCharacter(ctx, character) {
+        const img = this.imagesService.getAvatar(character.avatarImg);
+        if (!img) return;
+        const offsetX = character.pos.q * 54;
+        const offsetY = character.pos.r * 72 + character.pos.q * 36;
+        ctx.drawImage(img,
+            offsetX + this.wesnothTiles[0].clientWidth / 2 - 25,
+            offsetY + this.wesnothTiles[0].clientHeight / 2 - 32);
     }
 
     newTile(h, fog) {
@@ -104,11 +94,13 @@ class GameController {
                 this.$scope.model.set(this.newTile(h, false))
             });
 
-            // TODO kichoo to you... can we resolve images their promises again?
-            // response.data.characters
-            //     .filter(c => c.avatarImg)
-            //     .map(c => ({current: c}))
-            //     .map(c => this.printCharacterImg(c));
+            this.enemies = response.data.characters
+                .filter(c => c.avatarImg)
+
+            this.onPostDraw = (ctx) => {
+                this.enemies.forEach(e => this.drawCharacter(ctx, e))
+                this.drawCharacter(ctx, this.character.current)
+            }
         });
     }
 
