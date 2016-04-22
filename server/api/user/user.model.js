@@ -264,6 +264,7 @@ UserSchema.methods = {
     changeAvatar(newAvatar) {
         const avatarImg = {
             grumpy: 'assets/images/grumpy-cat.png',
+            dead: 'assets/images/rip.png',
             viking: 'assets/images/viking.png',
             doge: 'assets/images/doge-astronaut.png',
             product: 'assets/images/concrete-product.png',
