@@ -23,4 +23,3 @@ const moveUser = (req, res) =>
 
 // post user moves
 export const move = _.flow(requireProp, _.spread(moveUser))
-
