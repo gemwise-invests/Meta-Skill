@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 import crypto from 'crypto'
 import mongoose from 'mongoose'
@@ -7,7 +7,7 @@ import {Schema} from 'mongoose'
 
 const authTypes = ['github', 'twitter', 'facebook', 'google']
 
-var UserSchema = new Schema({
+let UserSchema = new Schema({
     name: String,
     email: {
         type: String,
@@ -259,23 +259,22 @@ UserSchema.methods = {
         return this.save()
     },
 
-    //TODO save just a user choice and level,
-    // to allow user gain new avatar thu levels
     changeAvatar(newAvatar) {
+        const imgDir = 'assets/images/'
         const avatarImg = {
-            grumpy: 'assets/images/grumpy-cat.png',
-            dead: 'assets/images/rip.png',
-            viking: 'assets/images/viking.png',
-            doge: 'assets/images/doge-astronaut.png',
-            product: 'assets/images/concrete-product.png',
-            'kleine-eule': 'assets/images/kleine-eule.png'
+            rip: ['rip', 'rip', 'rip'],
+            viking: ['viking', 'viking', 'viking'],
+            doge: ['doge', 'doge-astronaut', 'doge-lion'],
+            grumpy: ['grumpy-cat', 'grumpy-cat', 'grumpy-cat'],
+            'kleine-eule': ['kleine-eule', 'kleine-eule', 'kleine-eule'],
+            product: ['concrete-product', 'abstract-product', 'merchant-product']
         }[newAvatar]
 
         if (!avatarImg) {
             throw new Error('User unknown avatar')
         }
 
-        this.character.avatarImg = avatarImg
+        this.character.avatarImg = imgDir + avatarImg[this.character.level] + '.png'
         return this.save()
     }
 }
