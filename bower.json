@@ -17,7 +17,7 @@
     "angular-ui-router": "~0.2.15",
     "angular-validation-match": "~1.5.2",
     "jquery": "^2.2.1",
-    "angular-wesnoth-tiles": "^0.5.2",
+    "angular-wesnoth-tiles": "^0.6.1",
     "angular-chart.js": "^0.10.0"
   },
   "devDependencies": {
