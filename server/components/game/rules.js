@@ -1,22 +1,25 @@
-module.exports = function gameRules() {
-    'use strict';
+'use strict'
 
-    return {
-        isAllowed,
-        isFinished
-    }
-
-    // TODO remove
-    function isAllowed(from, to) {
-        return true;
-    }
-
-    function isFinished(tile, user) {
+const canLevelUp = (tile, user) => ({
+    0: () => (user.gainLevel()),
+    1: () => {
         if ('VILLAGE_DESERT' === tile.o) {
             return user.gainLevel()
         }
-        return tile
     }
+}[user.character.level]())
+
+//TODO
+const maybeDie = (title, user) => {
+    return false
 }
 
-export default module.exports
+const maybeLevelUp = (tile, user) => {
+    const levelUp = canLevelUp(tile, user)
+    return levelUp ? levelUp : tile
+}
+
+export default {
+    maybeDie,
+    maybeLevelUp
+}

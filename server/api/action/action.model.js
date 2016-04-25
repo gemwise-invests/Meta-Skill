@@ -19,7 +19,7 @@ let ActionSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['move', 'attack', 'pickup'],
+        enum: ['move', 'attack', 'pickup', 'drop'],
         required: true
     },
     from: mongoose.Schema.Types.Object,
@@ -75,10 +75,8 @@ ActionSchema.statics.move = _.flow(requireDirection, function move({dPosition, u
                 user
             }).save()
         )
-        .tap(() => {
-            user.move(newPos)
-        })
-        .then(title => gameRules().isFinished(title, user))
+        .tap(() => user.move(newPos))
+        .then(title => gameRules.maybeLevelUp(title, user))
 })
 
 ActionSchema.statics.attackTo = _.flow(requireDirection, function attackTo({dPosition, user}) {
@@ -123,8 +121,6 @@ ActionSchema.statics.attackTo = _.flow(requireDirection, function attackTo({dPos
         })
 })
 
-
-//TODO finish
 ActionSchema.statics.findLastMove = (user) =>
     User.findOne({email: user.email}).exec()
         .then(dbUser => Action.find({user: dbUser})
