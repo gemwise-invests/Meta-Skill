@@ -21,7 +21,4 @@ angular.module('mudServerApp', [
             .otherwise('/');
 
         $locationProvider.html5Mode(true);
-    })
-    .constant("WesnothTiles.config", {
-        path: "bower_components/wesnoth-tiles/tiles/"
     });
