@@ -116,7 +116,7 @@ UserSchema
             })
     }, 'The specified email address is already in use.')
 
-var validatePresenceOf = function (value) {
+const hasValue = (value) => {
     return value && value.length
 }
 
@@ -130,7 +130,7 @@ UserSchema
             return next()
         }
 
-        if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1) {
+        if (!hasValue(this.password) && authTypes.indexOf(this.provider) === -1) {
             next(new Error('Invalid password'))
         }
 
