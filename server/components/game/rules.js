@@ -10,8 +10,11 @@ const canLevelUp = (tile, user) => ({
 }[user.character.level]())
 
 //TODO
-const maybeDie = (title, user) => {
-    return false
+const maybeDie = (user) => {
+    if (user.character.hp <= 0) {
+        user.die()
+    }
+    return user
 }
 
 const maybeLevelUp = (tile, user) => {

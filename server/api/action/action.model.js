@@ -83,28 +83,22 @@ ActionSchema.statics.attackTo = _.flow(requireDirection, function attackTo({dPos
     const playerPos = user.character.pos
     const newPos = {q: playerPos.q + dPosition.q, r: playerPos.r + dPosition.r}
 
-    //TODO weapon stats 2*
-    //TODO randomnes
-    //TODO safe
     return User.findSafe({
             $and: [
                 {'character.pos.q': newPos.q},
                 {'character.pos.r': newPos.r}
             ]
         })
-        .then(dbUsers => {
-            return dbUsers.map(u => {
-                // TODO flatten or new character collection
-                if (u.character.stats.agl <= user.character.stats.str) {
-                    u.character.stats.hp -= user.character.stats.str
-                }
-                // hit back
-                if (user.character.stats.agl <= u.character.stats.str) {
-                    user.character.stats.hp -= u.character.stats.str
-                }
-                return u
-            })
-        })
+        .then(dbUsers => dbUsers.map(u => {
+            if (u.character.stats.agl <= user.character.stats.str) {
+                u.character.stats.hp -= user.character.stats.str
+            }
+            // hit back
+            if (user.character.stats.agl <= u.character.stats.str) {
+                user.character.stats.hp -= u.character.stats.str
+            }
+            return u
+        }))
         .then(dbUsers =>
             Promise.all(dbUsers.map(u => u.save()))
         )
@@ -117,8 +111,9 @@ ActionSchema.statics.attackTo = _.flow(requireDirection, function attackTo({dPos
             return Promise.all(
                 //TODO maybe save users here
                 attackedUsers.map(u => Action.newAttack(user, u))
-            ).then(attacks => attacks.map(a => a.toJSON()))
+            )
         })
+        .then(attacks => attacks.map(a => a.toJSON()))
 })
 
 ActionSchema.statics.findLastMove = (user) =>
