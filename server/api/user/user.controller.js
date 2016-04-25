@@ -1,7 +1,6 @@
 'use strict'
 
 import User from './user.model'
-import passport from 'passport'
 import config from '../../config/environment'
 import jwt from 'jsonwebtoken'
 import {handleError, validationError} from '../lib'
