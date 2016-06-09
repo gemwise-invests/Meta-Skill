@@ -5,6 +5,7 @@ angular.module('mudServerApp')
         $stateProvider
             .state('main', {
                 url: '/',
-                template: '<main></main>'
+                template: '<main></main>',
+                authenticate: 'user'
             });
     });
