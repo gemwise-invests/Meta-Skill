@@ -24,7 +24,7 @@ class CharacterController {
     }
 
     pickAvatar(avatar) {
-        console.warn('avarat picked', avatar)
+        console.warn('avatar picked', avatar)
         console.log(this.avatar)
     }
 

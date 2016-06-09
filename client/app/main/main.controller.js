@@ -6,6 +6,7 @@ class MainController {
         this.$scope = $scope;
         this.$state = $state;
         this.Auth = Auth;
+        console.log(Auth)
     }
 
     pickAvatar(avatar) {

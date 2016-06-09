@@ -267,7 +267,8 @@ UserSchema.methods = {
             doge: ['doge', 'doge-astronaut', 'doge-lion'],
             grumpy: ['grumpy-cat', 'grumpy-cat', 'grumpy-cat'],
             'kleine-eule': ['kleine-eule', 'kleine-eule', 'kleine-eule'],
-            product: ['concrete-product', 'abstract-product', 'merchant-product']
+            product: ['concrete-product', 'abstract-product', 'merchant-product'],
+            'happy-cat' : ['happy-cat', 'happy-cat', 'happy-cat']
         }[newAvatar]
 
         if (!avatarImg) {
