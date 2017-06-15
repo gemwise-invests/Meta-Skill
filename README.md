@@ -1,5 +1,7 @@
 # Game for interviews
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/syzer/game-recruitment.svg)](https://greenkeeper.io/)
+
 Most interview are borning or/and stressfull.
 Let's do interview in other way... by playing a game.
 
