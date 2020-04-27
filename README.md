@@ -1,4 +1,4 @@
-# Skill Test for Meta
+# Skill Test for MetaGame
 
 ## Try to gauge the competency of the player
 
