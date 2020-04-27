@@ -9,15 +9,14 @@
 ## Getting Started
 
 Game checks how candidate is confortable with modern web technologies, each hut is occupied by a chatbot which poses a challenge
-* Our client reports that he could not move his character to city...
-* How you would redesign UI?
-* There is big security leak in the app.. can you find it?
+* One player reports that he could not move his character to village ...
+* How you would extend/redesign UI?
+* There is big security leak in the dApp.. can you find it?
 
 ## What to look for
 * Look in candidate know how to use browser debugging tools
-* KnowHow about server responses codes
-* KnowHow about websockets, canvas, angular
-* Candidate should be able to find window.scope
-* Candidate might be able to point our couple bad style points in the frontend app
+* KnowHow about server responses codes or JSON protocols
+* KnowHow about websockets, canvas, node.js
+* Candidate might be able to point out bad style points in the frontend dApp
 
-If successful, we will issue them their own "patch" to build a chatbot.
+If successful, we will issue them their own "patch" to build a chatbot or SEEDS for additional dungeons.
