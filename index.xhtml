@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>Proof of Concept - Gamified Onboarding</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+   <style type="text/css"><![CDATA[
+
+/* Collapsible section */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsexpand {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hoover text */
+.hide {
+  display: none;
+}
+
+.hover:hover + .hide {
+  display: block;
+  color: darkblue;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+ ]]>
+
+</style>
+
+
+
+<![CDATA[ 
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+]]>
+</head>
+<body>
+<h1><h id="turing"></h>Turing Test</h1> 
+<form>
+<label>Which of following does P in LAMP <em>not</em> commonly used <div class="tooltip">&nbsp;&nbsp;<span class="tooltiptext">Used as hint whether techie or not, refactor as H5P quiz</span></div> <br /></label>
+<input type="checkbox"></input><label>Pascal<br /></label>
+<input type="checkbox"></input><label>Perl<br /></label>
+<input type="checkbox"></input><label>PHP<br /></label>
+<input type="checkbox"></input><label>Postscript<br /></label>
+<input type="checkbox"></input><label>Python<br /></label>
+</form>
+<p style="page-break-after:always">&nbsp;</p>
+<hr />
+<h1><h id="identity"></h>Identity Wallet <div class="tooltip">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tooltiptext">Fetch from MetaGame 3Box repo &amp; integrate</span></div> </h1>
+<table>
+<tr><th> <div class="hover">Developer</div>
+<div class="hide">Strong support for diversity via random (fe)male option</div></th><th>Designer </th><th>Delivery-Operations<div class="hide">Integrate with persistent MetaGamer profiles</div></th></tr>
+<tr>
+<td><img id="mageling" src="https://raw.githubusercontent.com/wesnoth/wesnoth/master/data/core/images/portraits/humans/mage+female.png"></img></td>
+<td><img id="archer" src="https://raw.githubusercontent.com/wesnoth/wesnoth/master/data/core/images/portraits/humans/woodsman.png"></img></td>
+<td><img id="warrior" src="https://raw.githubusercontent.com/wesnoth/wesnoth/master/data/core/images/portraits/humans/thief.png"></img></td>
+</tr>
+<tr><th>Hacker <div class="slidecontainer"><input type="range" min="1" max="5" value="3" class="slider" id="skill-tech"></input></div></th>
+<th>Hipster <div class="slidecontainer"><input type="range" min="1" max="5" value="4" class="slider" id="skill-talk"></input></div></th><th>Hustler<div class="slidecontainer"><input type="range" min="1" max="5" value="2" class="slider" id="skill-tact"></input></div></th></tr>
+</table>
+
+<p style="page-break-after:always">&nbsp;</p>
+<hr />
+<h1>Island of Discordia</h1>
+
+<button type="button" class="collapsible">You touch the screen gingerly ... which dissolves into a vertigo inducing light to ...</button>
+<div class="collapsexpand">
+  ... step into a magnificent sight, a massive tree stretching to the heavens. Alas the branches are bare, leaving it a stark skeleton blocking out the sky. You notice shiny tinsel on the ground, perhaps leftover from a recent celebration. The place looks like it could do with some <em>SERIOUS</em> decoration. If you monkey crawl a little up the smooth trunk, you can see a pond burbling to the north, bounded by a rather sticky bog to the east fed by cloud encrusted mountains to the south with open grassland and forests to the west.
+<table><tr><th>Mobile First</th><th>Keyboard</th><th>Discord/Telegram Bot</th></tr>
+<tr><td></td>
+<td></td>
+<td></td></tr>
+</table>
+</div>
+  <h1><a id="walkthru"></a>Walkthrough:</h1>
+<button type="button" class="collapsible">Full Map (spoiler)</button>
+<div class="colapsexpand">
+  <p><img src="https://github.com/gemwise-invests/Meta-Skill/blob/master/asset/img/IslandDiscordia_0.2a.png"></img></p>
+</div>
+<button type="button" class="collapsible">Pick-Look-Move</button>
+<div class="colapsexpand">
+  <p><object></object></p>
+</div>
+<button type="button" class="collapsible">Collectables</button>
+<div class="colapsexpand">
+  <p><canvas></canvas></p>
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i &lt; coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
