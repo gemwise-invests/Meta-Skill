@@ -1,3 +1,15 @@
+# Proof of Concept
+## Maps
+* story (mindmap)
+* scenary
+* scenario
+* situaton
+* SVG debugger
+
+## Demo
+* walk-thru (generated from mindmap)
+* visual map
+
 # Skill Test for MetaGame
 
 ## Try to gauge the competency of the player
